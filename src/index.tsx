@@ -12,7 +12,7 @@ import "./styles.css";
 import "sriracha-ui/css/main.css";
 
 const link = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: process.env.REACT_APP_GQL_URL,
   credentials: "include",
 });
 
