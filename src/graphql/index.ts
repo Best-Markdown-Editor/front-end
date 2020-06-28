@@ -78,6 +78,8 @@ export const editFileMutation = gql`
       title
       slug
       body
+      date
+      updatedAt
     }
   }
 `;

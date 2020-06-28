@@ -7,12 +7,12 @@ import { getFileQuery, editFileMutation } from "../../graphql";
 
 export default function MarkdownEditor() {
   const { slug } = useParams();
-  const { data } = useQuery(getFileQuery, {
+  const { data: fileData } = useQuery(getFileQuery, {
     variables: {
       slug,
     },
   });
-  console.log("get file:", data);
+  console.log("get file:", fileData);
   const [editFile, { error }] = useMutation(editFileMutation);
 
   console.log("error:", error);
@@ -25,26 +25,26 @@ export default function MarkdownEditor() {
     localStorage.setItem(slug, value);
   }
   async function handleSave(value: any) {
-    console.log("saving value:", {
-      id: data?.getFile?.id,
-      title: data?.getFile?.title,
-      body: value,
-    });
-    try {
-      await editFile({
-        variables: {
-          data: {
-            id: data?.getFile?.id,
-            title: data?.getFile?.title,
-            body: value,
-          },
+    // console.log("saving value:", {
+    //   id: fileData?.getFile?.id,
+    //   title: fileData?.getFile?.title,
+    //   body: value,
+    // });
+    // try {
+    await editFile({
+      variables: {
+        data: {
+          id: fileData?.getFile?.id,
+          title: fileData?.getFile?.title,
+          body: value,
         },
-        refetchQueries: [{ query: getFileQuery }],
-      });
-    } catch (err) {
-      console.log("err message", err.graphQLErrors[0].message);
-      return err.graphQLErrors[0].message;
-    }
+      },
+      // refetchQueries: [{ query: getFileQuery }],
+    });
+    // } catch (err) {
+    //   console.log("err message", err.graphQLErrors[0].message);
+    //   return err.graphQLErrors[0].message;
+    // }
   }
   console.log(value);
   return (
