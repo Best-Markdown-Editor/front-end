@@ -12,7 +12,7 @@ function App() {
       <PrivateRoute exact path="/" component={Home} />
       <Route exact path="/demo" component={Demo} />
       <Route path="/loading" component={Loading} />
-      <Route path="/:slug" component={MarkdownEditor} />
+      <PrivateRoute path="/:slug" component={MarkdownEditor} />
     </Switch>
   );
 }

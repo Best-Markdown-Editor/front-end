@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Editor from "for-editor";
 import Navbar from "../../utils/Navbar";
 import { useParams } from "react-router";
@@ -18,11 +18,15 @@ export default function MarkdownEditor() {
     ? localStorage.getItem(slug)
     : "";
   const [value, setValue] = useState(initValue);
+
+  console.log("value:", value);
+  console.log("fileData body:", fileData?.getFile?.body);
   async function handleChange(value: string) {
     setValue(value);
     localStorage.setItem(slug, value);
   }
   async function handleSave(value: any) {
+    console.log("Saving value:", value);
     await editFile({
       variables: {
         data: {
@@ -33,6 +37,14 @@ export default function MarkdownEditor() {
       },
     });
   }
+  useEffect(() => {
+    if (value === "") {
+      if (fileData?.getFile?.body) {
+        setValue(fileData?.getFile?.body);
+        console.log("file data body:", fileData?.getFile?.body);
+      }
+    }
+  }, [fileData, value]);
   return (
     <Navbar>
       <div className="demo-container">

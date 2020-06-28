@@ -110,7 +110,6 @@ export default function Landing() {
           maxW="90vw"
           maxH="90vh"
           w="30rem"
-          h="20rem"
         >
           <Input
             m="0 0 1rem 0"
@@ -140,7 +139,6 @@ export default function Landing() {
           maxW="90vw"
           maxH="90vh"
           w="30rem"
-          h="30rem"
         >
           <Input
             m="0 0 1rem 0"
