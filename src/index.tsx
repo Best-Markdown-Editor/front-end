@@ -13,7 +13,7 @@ import "sriracha-ui/css/main.css";
 
 const link = createHttpLink({
   uri: process.env.REACT_APP_GQL_URL,
-  credentials: "same-origin",
+  credentials: "include",
 });
 
 const client = new ApolloClient({
