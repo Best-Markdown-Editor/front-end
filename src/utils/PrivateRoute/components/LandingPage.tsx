@@ -29,7 +29,7 @@ export default function Landing() {
 
   async function onLogin({ email, password }: any) {
     try {
-      await login({
+      const res = await login({
         refetchQueries: [{ query: isAuthQuery }],
         variables: {
           data: {
@@ -38,6 +38,7 @@ export default function Landing() {
           },
         },
       });
+      console.log("Database Response:", res);
     } catch (err) {
       setErrors(err.graphQLErrors[0].message);
     }
@@ -45,7 +46,7 @@ export default function Landing() {
 
   async function onRegister({ email, username, password1, password2 }: any) {
     try {
-      const res = await register({
+      await register({
         refetchQueries: [{ query: isAuthQuery }],
         variables: {
           data: {
@@ -56,7 +57,6 @@ export default function Landing() {
           },
         },
       });
-      console.log("Database Response:", res);
     } catch (err) {
       setErrors(err.graphQLErrors[0].message);
     }

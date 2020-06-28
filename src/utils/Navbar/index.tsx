@@ -26,8 +26,8 @@ export default function Navbar({ children }: Props) {
         {data?.isAuth ? (
           <Button
             red
-            onClick={() =>
-              logout({
+            onClick={async () =>
+              await logout({
                 refetchQueries: [{ query: isAuthQuery }],
               })
             }

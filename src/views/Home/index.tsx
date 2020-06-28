@@ -5,15 +5,13 @@ import FileList from "./components/FileList";
 
 export default function Home() {
   return (
-    <>
-      <Navbar>
-        <Card stretch>
-          <Text as="h2" xlf bold m="3rem 0">
-            Welcome to Best Markdown Editor!
-          </Text>
-        </Card>
-        <FileList />
-      </Navbar>
-    </>
+    <Navbar>
+      <Card stretch>
+        <Text as="h2" xlf bold m="3rem 0">
+          Welcome to Best Markdown Editor!
+        </Text>
+      </Card>
+      <FileList />
+    </Navbar>
   );
 }
