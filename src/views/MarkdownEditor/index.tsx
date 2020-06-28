@@ -12,10 +12,8 @@ export default function MarkdownEditor() {
       slug,
     },
   });
-  console.log("get file:", fileData);
-  const [editFile, { error }] = useMutation(editFileMutation);
+  const [editFile] = useMutation(editFileMutation);
 
-  console.log("error:", error);
   const initValue = localStorage.getItem(slug)
     ? localStorage.getItem(slug)
     : "";
@@ -25,12 +23,6 @@ export default function MarkdownEditor() {
     localStorage.setItem(slug, value);
   }
   async function handleSave(value: any) {
-    // console.log("saving value:", {
-    //   id: fileData?.getFile?.id,
-    //   title: fileData?.getFile?.title,
-    //   body: value,
-    // });
-    // try {
     await editFile({
       variables: {
         data: {
@@ -39,14 +31,8 @@ export default function MarkdownEditor() {
           body: value,
         },
       },
-      // refetchQueries: [{ query: getFileQuery }],
     });
-    // } catch (err) {
-    //   console.log("err message", err.graphQLErrors[0].message);
-    //   return err.graphQLErrors[0].message;
-    // }
   }
-  console.log(value);
   return (
     <Navbar>
       <div className="demo-container">

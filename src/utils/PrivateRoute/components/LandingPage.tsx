@@ -27,10 +27,9 @@ export default function Landing() {
 
   const [errors, setErrors] = useState<any>();
 
-  console.log("errors:", errors);
   async function onLogin({ email, password }: any) {
     try {
-      const { data: apolloData } = await login({
+      await login({
         refetchQueries: [{ query: isAuthQuery }],
         variables: {
           data: {
@@ -39,8 +38,6 @@ export default function Landing() {
           },
         },
       });
-      console.log("apollo data:", apolloData);
-      console.log("email", email, "password", password);
     } catch (err) {
       setErrors(err.graphQLErrors[0].message);
     }
@@ -48,7 +45,7 @@ export default function Landing() {
 
   async function onRegister({ email, username, password1, password2 }: any) {
     try {
-      const { data: apolloData } = await register({
+      await register({
         refetchQueries: [{ query: isAuthQuery }],
         variables: {
           data: {
@@ -59,17 +56,6 @@ export default function Landing() {
           },
         },
       });
-      console.log("apollo data:", apolloData);
-      console.log(
-        "email",
-        email,
-        "username",
-        username,
-        "password1",
-        password1,
-        "password2",
-        password2
-      );
     } catch (err) {
       setErrors(err.graphQLErrors[0].message);
     }

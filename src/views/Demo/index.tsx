@@ -11,10 +11,6 @@ export default function Demo() {
     setValue(value);
     localStorage.setItem("demo", value);
   }
-  // function handleSave(value) {
-  //   console.log("saving value:", value);
-  // }
-  console.log(value);
   return (
     <Navbar>
       <div className="demo-container">
