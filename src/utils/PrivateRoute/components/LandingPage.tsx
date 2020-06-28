@@ -45,7 +45,7 @@ export default function Landing() {
 
   async function onRegister({ email, username, password1, password2 }: any) {
     try {
-      await register({
+      const res = await register({
         refetchQueries: [{ query: isAuthQuery }],
         variables: {
           data: {
@@ -56,6 +56,7 @@ export default function Landing() {
           },
         },
       });
+      console.log("Database Response:", res);
     } catch (err) {
       setErrors(err.graphQLErrors[0].message);
     }
