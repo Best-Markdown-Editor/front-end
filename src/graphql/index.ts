@@ -1,7 +1,7 @@
 import { gql } from "apollo-boost";
 
 export const loginMutation = gql`
-  mutation($data: LoginInput!) {
+  mutation($data: UserInput!) {
     login(data: $data) {
       id
       username
@@ -10,31 +10,9 @@ export const loginMutation = gql`
   }
 `;
 
-export const registerMutation = gql`
-  mutation($data: RegisterInput!) {
-    register(data: $data) {
-      id
-      username
-      email
-    }
-  }
-`;
-
-export const isAuthQuery = gql`
-  query {
-    isAuth
-  }
-`;
-
-export const logoutMutation = gql`
-  mutation {
-    logout
-  }
-`;
-
 export const getMyFilesQuery = gql`
-  query {
-    getFiles {
+  query($userId: String!) {
+    getFiles(userId: $userId) {
       id
       title
       slug
@@ -58,9 +36,22 @@ export const getFileQuery = gql`
   }
 `;
 
+export const getFileBySlugQuery = gql`
+  query($data: GetBySlugInput!) {
+    getFileBySlug(data: $data) {
+      id
+      title
+      slug
+      body
+      date
+      updatedAt
+    }
+  }
+`;
+
 export const addNewFileMutation = gql`
-  mutation($title: String!) {
-    addFile(title: $title) {
+  mutation($data: NewFileInput!) {
+    addFile(data: $data) {
       id
       title
       slug

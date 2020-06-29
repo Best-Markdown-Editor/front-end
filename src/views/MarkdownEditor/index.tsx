@@ -3,13 +3,18 @@ import Editor from "for-editor";
 import Navbar from "../../utils/Navbar";
 import { useParams } from "react-router";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { getFileQuery, editFileMutation } from "../../graphql";
+import { getFileBySlugQuery, editFileMutation } from "../../graphql";
+import { useSelector } from "react-redux";
 
 export default function MarkdownEditor() {
+  const uid = useSelector((state: any) => state.auth?.uid);
   const { slug } = useParams();
-  const { data: fileData } = useQuery(getFileQuery, {
+  const { data: fileData } = useQuery(getFileBySlugQuery, {
     variables: {
-      slug,
+      data: {
+        slug,
+        userId: uid,
+      },
     },
   });
   const [editFile] = useMutation(editFileMutation);
@@ -20,18 +25,22 @@ export default function MarkdownEditor() {
   const [value, setValue] = useState(initValue);
 
   console.log("value:", value);
-  console.log("fileData body:", fileData?.getFile?.body);
+  console.log("fileData body:", fileData?.getFileBySlug?.body);
   async function handleChange(value: string) {
     setValue(value);
     localStorage.setItem(slug, value);
   }
   async function handleSave(value: any) {
-    console.log("Saving value:", value);
+    console.log("Saving values:", {
+      id: fileData?.getFileBySlug?.id,
+      title: fileData?.getFileBySlug?.title,
+      body: value,
+    });
     await editFile({
       variables: {
         data: {
-          id: fileData?.getFile?.id,
-          title: fileData?.getFile?.title,
+          id: fileData?.getFileBySlug?.id,
+          title: fileData?.getFileBySlug?.title,
           body: value,
         },
       },
@@ -39,9 +48,9 @@ export default function MarkdownEditor() {
   }
   useEffect(() => {
     if (value === "") {
-      if (fileData?.getFile?.body) {
-        setValue(fileData?.getFile?.body);
-        console.log("file data body:", fileData?.getFile?.body);
+      if (fileData?.getFileBySlug?.body) {
+        setValue(fileData?.getFileBySlug?.body);
+        console.log("file data body:", fileData?.getFileBySlug?.body);
       }
     }
   }, [fileData, value]);

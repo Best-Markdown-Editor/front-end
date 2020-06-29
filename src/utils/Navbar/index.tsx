@@ -1,17 +1,16 @@
 import React from "react";
 import { NavBar, Wrapper, Text, Box, Button, Flex, theme } from "sriracha-ui";
 import { Link } from "react-router-dom";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { isAuthQuery, logoutMutation } from "../../graphql";
+import { useSelector } from "react-redux";
+import firebase from "../../config/firebase";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export default function Navbar({ children }: Props) {
+  const uid = useSelector((state: any) => state.auth?.uid);
   const navHeight = "5rem";
-  const { data } = useQuery(isAuthQuery);
-  const [logout] = useMutation(logoutMutation);
   return (
     <Wrapper>
       <NavBar bg={theme.colors.gray9} h={navHeight} aiCenter jcBetween>
@@ -23,15 +22,8 @@ export default function Navbar({ children }: Props) {
             </Text>
           </Link>
         </Flex>
-        {data?.isAuth ? (
-          <Button
-            red
-            onClick={async () =>
-              await logout({
-                refetchQueries: [{ query: isAuthQuery }],
-              })
-            }
-          >
+        {uid ? (
+          <Button red onClick={async () => firebase.auth().signOut()}>
             Logout
           </Button>
         ) : null}

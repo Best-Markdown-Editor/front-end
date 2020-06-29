@@ -19,11 +19,18 @@ import {
 } from "../../../graphql";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 export default function FileList() {
+  const uid = useSelector((state: any) => state.auth?.uid);
   const history = useHistory();
-  const [currTitle, setCurrTitle] = useState("");
-  const { data, loading } = useQuery(getMyFilesQuery);
+  const [currFileId, setCurrFileId] = useState("");
+  const { data, loading } = useQuery(getMyFilesQuery, {
+    variables: {
+      userId: uid,
+    },
+  });
+  console.log("get my files:", data);
   const [addFile] = useMutation(addNewFileMutation);
   const [deleteFile] = useMutation(deleteFileMutation);
   const { handleSubmit, register } = useForm();
@@ -32,12 +39,25 @@ export default function FileList() {
   const { isModal: isDeleteModal, toggleModal: toggleDeleteModal } = useModal();
 
   async function onSubmit({ title }: any) {
-    const { data } = await addFile({
-      variables: {
-        title: title,
-      },
-    });
-    history.push(`/${data?.addFile?.slug}`);
+    console.log("title:", title);
+    console.log("uid:", uid);
+    try {
+      const { data } = await addFile({
+        variables: {
+          data: {
+            title,
+            userId: uid,
+          },
+        },
+        refetchQueries: [{ query: getMyFilesQuery }],
+      });
+      history.push(`/${data?.addFile?.slug}`);
+    } catch (err) {
+      console.log("error graphQLErrors:", err.graphQLErrors);
+      console.log("error networkError:", err.networkError);
+      console.log("error message:", err.message);
+      console.log("error extraInfo:", err.extraInfo);
+    }
   }
 
   if (loading) return <Loading />;
@@ -76,7 +96,7 @@ export default function FileList() {
             <Button
               onClick={() => {
                 toggleDeleteModal();
-                setCurrTitle(file.title);
+                setCurrFileId(file.id);
               }}
               p="0 0.5rem"
               radius="0.3rem"
@@ -114,7 +134,7 @@ export default function FileList() {
           onClick={async () => {
             await deleteFile({
               variables: {
-                title: currTitle,
+                id: currFileId,
               },
               refetchQueries: [{ query: getMyFilesQuery }],
             });
