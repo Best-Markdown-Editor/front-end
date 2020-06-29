@@ -30,7 +30,6 @@ export default function FileList() {
       userId: uid,
     },
   });
-  console.log("get my files:", data);
   const [addFile] = useMutation(addNewFileMutation);
   const [deleteFile] = useMutation(deleteFileMutation);
   const { handleSubmit, register } = useForm();
@@ -39,25 +38,16 @@ export default function FileList() {
   const { isModal: isDeleteModal, toggleModal: toggleDeleteModal } = useModal();
 
   async function onSubmit({ title }: any) {
-    console.log("title:", title);
-    console.log("uid:", uid);
-    try {
-      const { data } = await addFile({
-        variables: {
-          data: {
-            title,
-            userId: uid,
-          },
+    const { data } = await addFile({
+      variables: {
+        data: {
+          title,
+          userId: uid,
         },
-        refetchQueries: [{ query: getMyFilesQuery }],
-      });
-      history.push(`/${data?.addFile?.slug}`);
-    } catch (err) {
-      console.log("error graphQLErrors:", err.graphQLErrors);
-      console.log("error networkError:", err.networkError);
-      console.log("error message:", err.message);
-      console.log("error extraInfo:", err.extraInfo);
-    }
+      },
+      refetchQueries: [{ query: getMyFilesQuery, variables: { userId: uid } }],
+    });
+    history.push(`/${data?.addFile?.slug}`);
   }
 
   if (loading) return <Loading />;
@@ -70,7 +60,6 @@ export default function FileList() {
         </Button>
         {data?.getFiles.map((file: any) => (
           <Card
-            // as="a"
             radius="0.5rem"
             bg={theme.colors.gray4}
             key={file.id}

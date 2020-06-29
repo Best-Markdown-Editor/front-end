@@ -17,7 +17,6 @@ import { applyMiddleware, createStore } from "redux";
 import { createFirestoreInstance } from "redux-firestore";
 import { firebaseReducer } from "react-redux-firebase";
 import thunk from "redux-thunk";
-import logger from "redux-logger";
 
 import "./styles.css";
 import "sriracha-ui/css/main.css";
@@ -32,7 +31,7 @@ const client = new ApolloClient({
   link,
 });
 
-const store = createStore(firebaseReducer, applyMiddleware(thunk, logger));
+const store = createStore(firebaseReducer, applyMiddleware(thunk));
 
 const reactReduxFirebaseConfig = {
   userProfile: "users",
