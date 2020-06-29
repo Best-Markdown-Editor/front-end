@@ -76,7 +76,7 @@ export const editFileMutation = gql`
 `;
 
 export const deleteFileMutation = gql`
-  mutation($title: String!) {
-    deleteFile(title: $title)
+  mutation($id: ID!) {
+    deleteFile(id: $id)
   }
 `;

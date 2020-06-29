@@ -121,11 +121,14 @@ export default function FileList() {
         <Button
           red
           onClick={async () => {
+            console.log("curr file id:", currFileId);
             await deleteFile({
               variables: {
                 id: currFileId,
               },
-              refetchQueries: [{ query: getMyFilesQuery }],
+              refetchQueries: [
+                { query: getMyFilesQuery, variables: { userId: uid } },
+              ],
             });
             toggleDeleteModal();
           }}
