@@ -3,11 +3,22 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+
 import { AppWrapper } from "sriracha-ui";
 import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { createHttpLink } from "apollo-link-http";
+
+import firebase from "./config/firebase";
+import { Provider } from "react-redux";
+import { ReactReduxFirebaseProvider } from "react-redux-firebase";
+import { applyMiddleware, createStore } from "redux";
+import { createFirestoreInstance } from "redux-firestore";
+import { firebaseReducer } from "react-redux-firebase";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
+
 import "./styles.css";
 import "sriracha-ui/css/main.css";
 
@@ -21,15 +32,34 @@ const client = new ApolloClient({
   link,
 });
 
+const store = createStore(firebaseReducer, applyMiddleware(thunk, logger));
+
+const reactReduxFirebaseConfig = {
+  userProfile: "users",
+  useFirestoreForProfile: true,
+  attachAuthIsReady: true,
+};
+
+const reactReduxFirebaseProps = {
+  firebase,
+  config: reactReduxFirebaseConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance, // <- needed if using firestore
+};
+
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <ApolloProvider client={client}>
-        <AppWrapper>
-          <App />
-        </AppWrapper>
-      </ApolloProvider>
-    </Router>
+    <Provider store={store}>
+      <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
+        <Router>
+          <ApolloProvider client={client}>
+            <AppWrapper>
+              <App />
+            </AppWrapper>
+          </ApolloProvider>
+        </Router>
+      </ReactReduxFirebaseProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );

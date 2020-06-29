@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route } from "react-router-dom";
 
-import { useQuery } from "@apollo/react-hooks";
+import { useSelector } from "react-redux";
 
 import Loading from "./components/Loading";
 import LandingPage from "./components/LandingPage";
-import { isAuthQuery } from "../../graphql";
 
 const PrivateRoute = ({ component: RouteComponent, ...rest }: any) => {
-  const { data, loading } = useQuery(isAuthQuery);
+  const [token, setToken] = useState("");
 
-  const isAuth = data?.isAuth;
+  useSelector(
+    async (state: any) =>
+      (await state.auth.stsTokenManager) &&
+      state.auth.stsTokenManager.accessToken
+  ).then((res) => setToken(res));
+
+  const loaded = useSelector((state: any) => state.profile.isLoaded);
 
   return (
     <Route
       {...rest}
       render={(routeProps) => {
-        return isAuth ? (
+        return token ? (
           <RouteComponent {...routeProps} />
-        ) : !loading && !isAuth ? (
+        ) : loaded && !token ? (
           <LandingPage />
         ) : (
           <Loading />

@@ -13,12 +13,12 @@ import {
   theme,
 } from "sriracha-ui";
 import { useMutation } from "@apollo/react-hooks";
-import { loginMutation, isAuthQuery, registerMutation } from "../../../graphql";
+import { loginMutation } from "../../../graphql";
 import { useForm } from "react-hook-form";
+import firebase from "../../../config/firebase";
 
 export default function Landing() {
   const [login] = useMutation(loginMutation);
-  const [register] = useMutation(registerMutation);
 
   const { isModal: isLogin, toggleModal: toggleLogin } = useModal();
   const { isModal: isRegister, toggleModal: toggleRegister } = useModal();
@@ -29,35 +29,45 @@ export default function Landing() {
 
   async function onLogin({ email, password }: any) {
     try {
-      await login({
-        refetchQueries: [{ query: isAuthQuery }],
-        variables: {
-          data: {
-            email,
-            password,
-          },
-        },
-      });
+      const res = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
+      console.log("Firebase Response:", res);
     } catch (err) {
-      setErrors(err.graphQLErrors[0].message);
+      // console.log("error:", err);
+      setErrors(err.message);
     }
   }
 
   async function onRegister({ email, username, password1, password2 }: any) {
+    if (password1 !== password2) {
+      setErrors("Passwords do not match... 💩");
+      return;
+    }
+    if (password1.length < 6) {
+      setErrors("Password must be 6 or more characters... 💩");
+      return;
+    }
     try {
-      await register({
-        refetchQueries: [{ query: isAuthQuery }],
+      const res = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password1);
+      console.log("FIREBASE RES:", res);
+      const reg = await login({
         variables: {
           data: {
-            email,
-            username,
-            password1,
-            password2,
+            id: res.user?.uid,
+            username: username,
+            email: res.user?.email,
+            avatar: res.user?.photoURL
+              ? res.user?.photoURL
+              : "http://chrisalensula.org/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",
           },
         },
       });
+      console.log("Register Response:", reg);
     } catch (err) {
-      setErrors(err.graphQLErrors[0].message);
+      setErrors(err.message);
     }
   }
   return (
