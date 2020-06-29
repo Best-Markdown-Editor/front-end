@@ -24,18 +24,18 @@ export default function MarkdownEditor() {
     : "";
   const [value, setValue] = useState(initValue);
 
-  console.log("value:", value);
-  console.log("fileData body:", fileData?.getFileBySlug?.body);
+  // console.log("value:", value);
+  // console.log("fileData body:", fileData?.getFileBySlug?.body);
   async function handleChange(value: string) {
     setValue(value);
     localStorage.setItem(slug, value);
   }
   async function handleSave(value: any) {
-    console.log("Saving values:", {
-      id: fileData?.getFileBySlug?.id,
-      title: fileData?.getFileBySlug?.title,
-      body: value,
-    });
+    // console.log("Saving values:", {
+    //   id: fileData?.getFileBySlug?.id,
+    //   title: fileData?.getFileBySlug?.title,
+    //   body: value,
+    // });
     await editFile({
       variables: {
         data: {
@@ -50,7 +50,7 @@ export default function MarkdownEditor() {
     if (value === "") {
       if (fileData?.getFileBySlug?.body) {
         setValue(fileData?.getFileBySlug?.body);
-        console.log("file data body:", fileData?.getFileBySlug?.body);
+        // console.log("file data body:", fileData?.getFileBySlug?.body);
       }
     }
   }, [fileData, value]);
