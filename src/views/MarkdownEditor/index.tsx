@@ -26,7 +26,6 @@ export default function MarkdownEditor() {
     },
   });
 
-  console.log("file data:", fileData);
   const [currTitle, setCurrTitle] = useState<any>("");
 
   const [editFile] = useMutation(editFileMutation);
@@ -40,9 +39,6 @@ export default function MarkdownEditor() {
   async function handleChange(value: string) {
     setValue(value);
     localStorage.setItem(slug, value);
-  }
-
-  async function handleSave(value: any) {
     await editFile({
       variables: {
         data: {
@@ -69,7 +65,6 @@ export default function MarkdownEditor() {
   }
 
   async function exportMarkdownFile(file: any) {
-    await handleSave(localStorage.getItem(slug));
     const blob = new Blob([file.body], {
       type: "text/plain;charset=utf-8",
     });
@@ -99,7 +94,7 @@ export default function MarkdownEditor() {
           </Text>
         </Flex>
         <Flex>
-          <ToolTip ttRight="4.2rem" ttTop="5.6rem">
+          <ToolTip ttRight="4.6rem" ttTop="5.6rem">
             <Button
               blue
               p="0.5rem 1rem"
@@ -108,9 +103,7 @@ export default function MarkdownEditor() {
               <Box sqr="1.2rem" bg={theme.colors.lightBlue1} window />
             </Button>
             <div className="tooltip">
-              <Text sf color={theme.colors.gray9} w="14rem">
-                Export as markdown file. (Don't forget to save first!)
-              </Text>
+              <Text color={theme.colors.gray9}>Export as markdown file.</Text>
             </div>
           </ToolTip>
         </Flex>
@@ -122,7 +115,6 @@ export default function MarkdownEditor() {
           ref={imgRef}
           value={value ? value : undefined}
           onChange={handleChange}
-          onSave={handleSave}
           addImg={addImg}
           height="calc(100vh - 9rem)"
           toolbar={{
@@ -135,7 +127,6 @@ export default function MarkdownEditor() {
             img: true,
             link: true,
             code: true,
-            save: true,
             preview: true,
             expand: true,
             subfield: true,
