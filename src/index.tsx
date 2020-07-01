@@ -20,6 +20,7 @@ import thunk from "redux-thunk";
 
 import "./styles.css";
 import "sriracha-ui/css/main.css";
+import "cropperjs/dist/cropper.min.css";
 
 const link = createHttpLink({
   uri: process.env.REACT_APP_GQL_URL,

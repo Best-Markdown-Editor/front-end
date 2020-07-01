@@ -7,7 +7,7 @@ import {
   Button,
   Form,
   Input,
-  // Box,
+  Box,
   useModal,
   theme,
 } from "sriracha-ui";
@@ -20,6 +20,7 @@ import {
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function FileList() {
   const uid = useSelector((state: any) => state.auth?.uid);
@@ -82,26 +83,18 @@ export default function FileList() {
             >
               {file.title}
             </Text>
-            <Button
+            <Box
               onClick={() => {
                 toggleDeleteModal();
                 setCurrFileId(file.id);
               }}
-              p="0 0.5rem"
-              radius="0.3rem"
-              sink
+              visible
               pointer
+              color={theme.colors.red6}
+              hvrColor={theme.colors.red9}
             >
-              <Text
-                bold
-                fontSize="1.2rem"
-                color={theme.colors.red5}
-                hvrColor={theme.colors.red7}
-                pointer
-              >
-                X
-              </Text>
-            </Button>
+              <FontAwesomeIcon icon="window-close" size="lg" />
+            </Box>
           </Card>
         ))}
       </Card>
