@@ -5,6 +5,28 @@ import Demo from "./views/Demo";
 import MarkdownEditor from "./views/MarkdownEditor";
 import Loading from "./utils/PrivateRoute/components/Loading";
 import PrivateRoute from "./utils/PrivateRoute";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import {
+  faSignOutAlt,
+  faWindowClose,
+  faFileDownload,
+  faTrash,
+  faEdit,
+  faUserCog,
+  faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
+
+library.add(
+  fab,
+  faSignOutAlt,
+  faWindowClose,
+  faFileDownload,
+  faTrash,
+  faEdit,
+  faUserCog,
+  faSpinner
+);
 
 function App() {
   return (

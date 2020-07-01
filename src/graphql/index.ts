@@ -6,6 +6,18 @@ export const loginMutation = gql`
       id
       username
       email
+      avatar
+    }
+  }
+`;
+
+export const editUserMutation = gql`
+  mutation($data: UserInput!) {
+    editUser(data: $data) {
+      id
+      username
+      email
+      avatar
     }
   }
 `;
@@ -19,6 +31,17 @@ export const getMyFilesQuery = gql`
       body
       date
       updatedAt
+    }
+  }
+`;
+
+export const getUserQuery = gql`
+  query($id: ID!) {
+    user(id: $id) {
+      id
+      username
+      email
+      avatar
     }
   }
 `;

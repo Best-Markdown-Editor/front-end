@@ -61,7 +61,7 @@ export default function Landing() {
             email: res.user?.email,
             avatar: res.user?.photoURL
               ? res.user?.photoURL
-              : "http://chrisalensula.org/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png",
+              : "https://firebasestorage.googleapis.com/v0/b/best-markdown-editor.appspot.com/o/images%2Fuser-image.jpeg?alt=media&token=7e0be9b7-3693-4973-a313-5553224390c8",
           },
         },
       });
