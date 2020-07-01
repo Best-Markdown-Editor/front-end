@@ -103,7 +103,7 @@ export default function Settings({ user, toggle }: SettingsProps) {
           hvrBorder={`0.2rem dashed ${theme.colors.gray4}`}
           sqr="10rem"
         >
-          <input {...getInputProps()} name="avatar" ref={register} />
+          <input {...getInputProps()} />
           {isDragActive ? (
             <p>Drop the files here ...</p>
           ) : (
