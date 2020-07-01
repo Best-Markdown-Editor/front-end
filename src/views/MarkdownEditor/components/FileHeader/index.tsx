@@ -36,7 +36,13 @@ export default function FileHeader({
 
         <Box w="2rem" />
         <Text bold color={theme.colors.red5}>
-          {loading ? "Loading file upload..." : null}
+          {loading ? (
+            <Flex aiCenter>
+              <FontAwesomeIcon icon="spinner" spin />
+              <Box w="1rem" />
+              Loading file upload...
+            </Flex>
+          ) : null}
         </Text>
       </Flex>
       <Flex>
