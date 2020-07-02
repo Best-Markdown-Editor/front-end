@@ -26,7 +26,7 @@ export default function Demo() {
             h2: true,
             h3: true,
             h4: true,
-            img: true,
+            // img: true,
             link: true,
             code: true,
             // save: true,
