@@ -22,16 +22,33 @@ export default function Navbar({ children }: Props) {
 
   return (
     <Wrapper>
-      <NavBar bg={theme.colors.gray9} h={navHeight} aiCenter jcBetween>
+      <NavBar
+        bg={theme.colors.gray9}
+        h={navHeight}
+        aiCenter
+        jcAround
+        maxW="100vw"
+      >
         <Flex>
-          <Box w="1rem" />
           <Link to="/">
-            <Text as="h1" bold lf color={theme.colors.gray1} pointer>
-              Best Markdown Editor
+            <Text
+              as="h1"
+              bold
+              lf
+              color={theme.colors.gray1}
+              w="36rem"
+              p="0 1rem"
+              pointer
+            >
+              {window.matchMedia("(min-width: 870px)").matches
+                ? "Best Markdown Editor"
+                : "BME"}
             </Text>
           </Link>
         </Flex>
-        {uid ? <UserOptions uid={uid} /> : null}
+        <Flex className="user-info" w="100%" jcEnd>
+          {uid ? <UserOptions uid={uid} /> : null}
+        </Flex>
       </NavBar>
       <Box h={navHeight} />
       {children}

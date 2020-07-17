@@ -7,6 +7,7 @@ export const loginMutation = gql`
       username
       email
       avatar
+      subscriber
     }
   }
 `;
@@ -18,6 +19,7 @@ export const editUserMutation = gql`
       username
       email
       avatar
+      subscriber
     }
   }
 `;
@@ -42,6 +44,7 @@ export const getUserQuery = gql`
       username
       email
       avatar
+      subscriber
     }
   }
 `;

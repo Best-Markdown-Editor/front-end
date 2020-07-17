@@ -14,30 +14,57 @@ export default function Demo() {
   return (
     <Navbar>
       <div className="demo-container">
-        <Editor
-          language="en"
-          value={value ? value : undefined}
-          onChange={handleChange}
-          height="calc(100vh - 5rem)"
-          toolbar={{
-            undo: true,
-            redo: true,
-            h1: true,
-            h2: true,
-            h3: true,
-            h4: true,
-            // img: true,
-            link: true,
-            code: true,
-            // save: true,
-            preview: true,
-            expand: true,
-            subfield: true,
-          }}
-          subfield={true}
-          expand={false}
-          preview={true}
-        />
+        {window.matchMedia("(min-width: 768px)").matches ? (
+          <Editor
+            language="en"
+            value={value ? value : undefined}
+            onChange={handleChange}
+            height="calc(100vh - 5rem)"
+            toolbar={{
+              undo: true,
+              redo: true,
+              h1: true,
+              h2: true,
+              h3: true,
+              h4: true,
+              // img: true,
+              link: true,
+              code: true,
+              // save: true,
+              preview: true,
+              expand: true,
+              subfield: true,
+            }}
+            subfield={true}
+            expand={false}
+            preview={true}
+          />
+        ) : (
+          <Editor
+            language="en"
+            value={value ? value : undefined}
+            onChange={handleChange}
+            height="calc(100vh - 5rem)"
+            toolbar={{
+              undo: true,
+              redo: true,
+              h1: true,
+              h2: true,
+              h3: true,
+              h4: true,
+              // img: true,
+              link: true,
+              code: true,
+              // save: true,
+              preview: true,
+              expand: true,
+              subfield: true,
+            }}
+            subfield={true}
+            expand={false}
+            preview={false}
+          />
+        )}
       </div>
     </Navbar>
   );
