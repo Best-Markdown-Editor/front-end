@@ -22,7 +22,7 @@ export default function Settings({ user, toggle }: SettingsProps) {
 
   const onDrop = useCallback(async (acceptedFiles) => {
     setLoading(true);
-    console.log("acceptedFiles", acceptedFiles);
+    // console.log("acceptedFiles", acceptedFiles);
     await storage.ref(`/images/${acceptedFiles[0].name}`).put(acceptedFiles[0]);
     await storage
       .ref("images")

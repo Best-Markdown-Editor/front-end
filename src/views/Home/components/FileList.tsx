@@ -44,11 +44,14 @@ export default function FileList() {
         data: {
           title,
           userId: uid,
+          body: `# ${title} \n\n`,
         },
       },
       refetchQueries: [{ query: getMyFilesQuery, variables: { userId: uid } }],
     });
+    console.log("add file data:", data);
     history.push(`/${data?.addFile?.slug}`);
+    // data && data.addFile && data.addFile.slug
   }
 
   if (loading) return <Loading />;
@@ -114,7 +117,7 @@ export default function FileList() {
         <Button
           red
           onClick={async () => {
-            console.log("curr file id:", currFileId);
+            // console.log("curr file id:", currFileId);
             await deleteFile({
               variables: {
                 id: currFileId,
