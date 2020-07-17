@@ -32,7 +32,7 @@ export default function Landing() {
       const res = await firebase
         .auth()
         .signInWithEmailAndPassword(email, password);
-      console.log("Firebase Response:", res);
+      // console.log("Firebase Response:", res);
     } catch (err) {
       // console.log("error:", err);
       setErrors(err.message);
@@ -52,7 +52,7 @@ export default function Landing() {
       const res = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password1);
-      console.log("FIREBASE RES:", res);
+      // console.log("FIREBASE RES:", res);
       const reg = await login({
         variables: {
           data: {
@@ -65,7 +65,7 @@ export default function Landing() {
           },
         },
       });
-      console.log("Register Response:", reg);
+      // console.log("Register Response:", reg);
     } catch (err) {
       setErrors(err.message);
     }
