@@ -106,7 +106,13 @@ export default function FileList() {
           <Text as="label" lg>
             Title for your new file:
           </Text>
-          <Input type="text" name="title" ref={register} placeholder="Title" />
+          <Input
+            type="text"
+            name="title"
+            autoFocus
+            ref={register}
+            placeholder="Title"
+          />
           <Button type="submit" blue>
             Create
           </Button>
