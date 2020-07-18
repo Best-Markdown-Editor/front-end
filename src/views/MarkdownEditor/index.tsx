@@ -75,32 +75,61 @@ export default function MarkdownEditor() {
         loading={loading}
       />
       <div className="demo-container">
-        <Editor
-          language="en"
-          // @ts-ignore
-          ref={imgRef}
-          value={value ? value : undefined}
-          onChange={handleChange}
-          addImg={addImg}
-          height="calc(100vh - 9rem)"
-          toolbar={{
-            undo: true,
-            redo: true,
-            h1: true,
-            h2: true,
-            h3: true,
-            h4: true,
-            img: true,
-            link: true,
-            code: true,
-            preview: true,
-            expand: true,
-            subfield: true,
-          }}
-          subfield={true}
-          expand={false}
-          preview={true}
-        />
+        {window.matchMedia("(min-width: 768px)").matches ? (
+          <Editor
+            language="en"
+            // @ts-ignore
+            ref={imgRef}
+            value={value ? value : undefined}
+            onChange={handleChange}
+            addImg={addImg}
+            height="calc(100vh - 9rem)"
+            toolbar={{
+              undo: true,
+              redo: true,
+              h1: true,
+              h2: true,
+              h3: true,
+              h4: true,
+              img: true,
+              link: true,
+              code: true,
+              preview: true,
+              expand: true,
+              subfield: true,
+            }}
+            subfield={true}
+            expand={false}
+            preview={true}
+          />
+        ) : (
+          <Editor
+            language="en"
+            // @ts-ignore
+            ref={imgRef}
+            value={value ? value : undefined}
+            onChange={handleChange}
+            addImg={addImg}
+            height="calc(100vh - 9rem)"
+            toolbar={{
+              undo: true,
+              redo: true,
+              // h1: true,
+              // h2: true,
+              // h3: true,
+              // h4: true,
+              img: true,
+              link: true,
+              code: true,
+              preview: true,
+              expand: true,
+              subfield: true,
+            }}
+            subfield={true}
+            expand={false}
+            preview={false}
+          />
+        )}
       </div>
     </Navbar>
   );

@@ -58,7 +58,7 @@ export default function FileList() {
 
   return (
     <>
-      <Card w="40rem" shade>
+      <Card w="40rem" maxW="94vw" shade>
         <Button green sink onClick={toggleModal}>
           Add New File
         </Button>
