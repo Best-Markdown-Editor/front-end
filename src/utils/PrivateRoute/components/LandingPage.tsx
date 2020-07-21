@@ -29,12 +29,8 @@ export default function Landing() {
 
   async function onLogin({ email, password }: any) {
     try {
-      const res = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password);
-      // console.log("Firebase Response:", res);
+      await firebase.auth().signInWithEmailAndPassword(email, password);
     } catch (err) {
-      // console.log("error:", err);
       setErrors(err.message);
     }
   }
@@ -52,8 +48,7 @@ export default function Landing() {
       const res = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password1);
-      // console.log("FIREBASE RES:", res);
-      const reg = await login({
+      await login({
         variables: {
           data: {
             id: res.user?.uid,
@@ -65,7 +60,6 @@ export default function Landing() {
           },
         },
       });
-      // console.log("Register Response:", reg);
     } catch (err) {
       setErrors(err.message);
     }
