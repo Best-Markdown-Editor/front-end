@@ -60,7 +60,7 @@ export default function Demo() {
               expand: true,
               subfield: true,
             }}
-            subfield={true}
+            subfield={false}
             expand={false}
             preview={false}
           />
