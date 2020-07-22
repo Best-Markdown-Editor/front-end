@@ -9716,6 +9716,13 @@ react-hook-form@^5.7.2:
   resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-5.7.2.tgz#a84e259e5d37dd30949af4f79c4dac31101b79ac"
   integrity sha512-bJvY348vayIvEUmSK7Fvea/NgqbT2racA2IbnJz/aPlQ3GBtaTeDITH6rtCa6y++obZzG6E3Q8VuoXPir7QYUg==
 
+react-iframe@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/react-iframe/-/react-iframe-1.8.0.tgz#8c78f2c59b894ca5605fa7e45e61e27e57e96091"
+  integrity sha512-NYi89+rEqREwQxW9sDf+akh6/dtwWd3bOjByoVEIQ7SicOxVawRMer3pLdWjFaHXpuxTB9NqobPf/Ohj2iAKkg==
+  dependencies:
+    object-assign "^4.1.1"
+
 react-image-crop@^8.6.4:
   version "8.6.4"
   resolved "https://registry.yarnpkg.com/react-image-crop/-/react-image-crop-8.6.4.tgz#51289c22baf7d116575102e885f879af71376388"

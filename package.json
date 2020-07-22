@@ -37,6 +37,7 @@
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.0.1",
     "react-hook-form": "^5.7.2",
+    "react-iframe": "^1.8.0",
     "react-image-crop": "^8.6.4",
     "react-redux": "^7.2.0",
     "react-redux-firebase": "^3.6.0",
