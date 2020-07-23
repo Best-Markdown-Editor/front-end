@@ -4,7 +4,11 @@ import { useDropzone } from "react-dropzone";
 import { storage } from "../../../config/firebase";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/react-hooks";
-import { editUserMutation } from "../../../graphql";
+import {
+  editUserMutation,
+  unSubUserMutation,
+  subUserMutation,
+} from "../../../graphql";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface SettingsProps {
@@ -15,14 +19,16 @@ interface SettingsProps {
 export default function Settings({ user, toggle }: SettingsProps) {
   const { handleSubmit, register } = useForm();
   const [editUser] = useMutation(editUserMutation);
+  const [unSubUser] = useMutation(unSubUserMutation);
+  const [subUser] = useMutation(subUserMutation);
 
-  const [image, setImage] = useState<any>();
+  const [image, setImage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
+  const [reveal, setReveal] = useState<boolean>(false);
 
   const onDrop = useCallback(async (acceptedFiles) => {
     setLoading(true);
-    // console.log("acceptedFiles", acceptedFiles);
     await storage.ref(`/images/${acceptedFiles[0].name}`).put(acceptedFiles[0]);
     await storage
       .ref("images")
@@ -52,7 +58,7 @@ export default function Settings({ user, toggle }: SettingsProps) {
 
   return (
     <Flex as="form" drape w="35rem" onSubmit={handleSubmit(onSubmit)}>
-      <Text as="label" for="username">
+      <Text as="label" htmlFor="username">
         Username...
       </Text>
       {edit ? (
@@ -83,7 +89,7 @@ export default function Settings({ user, toggle }: SettingsProps) {
         </Flex>
       )}
 
-      <Text as="label" for="avatar" m="2rem 0">
+      <Text as="label" htmlFor="avatar" m="2rem 0">
         Profile image...
       </Text>
       {image ? (
@@ -111,6 +117,43 @@ export default function Settings({ user, toggle }: SettingsProps) {
           )}
         </Flex>
       )}
+      {user.subscriber ? (
+        <Button
+          red
+          type="button"
+          onClick={() => {
+            unSubUser({
+              variables: {
+                id: user.id,
+              },
+            });
+          }}
+        >
+          Unsubscribe
+        </Button>
+      ) : (
+        <Button
+          green
+          type="button"
+          onClick={() => {
+            subUser({
+              variables: {
+                id: user.id,
+              },
+            });
+          }}
+        >
+          Subscribe
+        </Button>
+      )}
+      {user.subscriber ? (
+        <>
+          <Button pink type="button" onClick={() => setReveal(!reveal)}>
+            Reveal Token
+          </Button>
+          {reveal ? <Text bold>{user.token}</Text> : null}
+        </>
+      ) : null}
       <Button amber type="green" m="2rem 0">
         Save changes...
       </Button>

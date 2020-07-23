@@ -28,7 +28,6 @@ export default function UserOptions({ uid }: UserProps) {
     },
   });
 
-  console.log("user", data);
   return (
     <>
       <ToolTip ttTop="3rem" ttRight="0">
@@ -47,7 +46,6 @@ export default function UserOptions({ uid }: UserProps) {
               <Box w="1.6rem" />
               <Box sqr="3rem" circle m="0 1rem 0 0">
                 <img src={data?.user?.avatar} alt="user avatar" />
-                {console.log("avatar:", data?.user?.avatar)}
               </Box>
             </Flex>
           )}

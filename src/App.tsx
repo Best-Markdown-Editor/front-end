@@ -15,6 +15,7 @@ import {
   faEdit,
   faUserCog,
   faSpinner,
+  faFilePowerpoint,
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -25,7 +26,8 @@ library.add(
   faTrash,
   faEdit,
   faUserCog,
-  faSpinner
+  faSpinner,
+  faFilePowerpoint
 );
 
 function App() {

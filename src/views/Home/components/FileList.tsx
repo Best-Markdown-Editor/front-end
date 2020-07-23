@@ -49,7 +49,6 @@ export default function FileList() {
       },
       refetchQueries: [{ query: getMyFilesQuery, variables: { userId: uid } }],
     });
-    console.log("add file data:", data);
     history.push(`/${data?.addFile?.slug}`);
     // data && data.addFile && data.addFile.slug
   }
@@ -117,7 +116,6 @@ export default function FileList() {
         <Button
           red
           onClick={async () => {
-            // console.log("curr file id:", currFileId);
             await deleteFile({
               variables: {
                 id: currFileId,

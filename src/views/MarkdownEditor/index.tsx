@@ -70,6 +70,7 @@ export default function MarkdownEditor() {
   return (
     <Navbar>
       <FileHeader
+        userId={uid}
         title={currTitle}
         currFile={fileData?.getFileBySlug}
         loading={loading}
@@ -114,10 +115,6 @@ export default function MarkdownEditor() {
             toolbar={{
               undo: true,
               redo: true,
-              // h1: true,
-              // h2: true,
-              // h3: true,
-              // h4: true,
               img: true,
               link: true,
               code: true,
