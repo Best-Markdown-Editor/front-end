@@ -8,6 +8,7 @@ export const loginMutation = gql`
       email
       avatar
       subscriber
+      token
     }
   }
 `;
@@ -20,6 +21,33 @@ export const editUserMutation = gql`
       email
       avatar
       subscriber
+      token
+    }
+  }
+`;
+
+export const subUserMutation = gql`
+  mutation($id: ID!) {
+    subUser(id: $id) {
+      id
+      username
+      email
+      avatar
+      subscriber
+      token
+    }
+  }
+`;
+
+export const unSubUserMutation = gql`
+  mutation($id: ID!) {
+    unSubUser(id: $id) {
+      id
+      username
+      email
+      avatar
+      subscriber
+      token
     }
   }
 `;
@@ -45,6 +73,7 @@ export const getUserQuery = gql`
       email
       avatar
       subscriber
+      token
     }
   }
 `;
@@ -104,5 +133,41 @@ export const editFileMutation = gql`
 export const deleteFileMutation = gql`
   mutation($id: ID!) {
     deleteFile(id: $id)
+  }
+`;
+
+export const publishFileMutation = gql`
+  mutation($data: PubFileInput!) {
+    publishFile(data: $data) {
+      id
+      title
+      slug
+      body
+      description
+      thumbnail
+      publishedOn
+      updatedAt
+    }
+  }
+`;
+
+export const isFilePubQuery = gql`
+  query($id: ID!) {
+    isFilePub(id: $id)
+  }
+`;
+
+export const getPubFileQuery = gql`
+  query($id: ID!) {
+    getPubFile(id: $id) {
+      id
+      title
+      slug
+      body
+      description
+      thumbnail
+      publishedOn
+      updatedAt
+    }
   }
 `;

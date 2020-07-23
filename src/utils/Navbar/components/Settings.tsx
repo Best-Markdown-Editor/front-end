@@ -4,8 +4,9 @@ import { useDropzone } from "react-dropzone";
 import { storage } from "../../../config/firebase";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/react-hooks";
-import { editUserMutation } from "../../../graphql";
+import { editUserMutation, unSubUserMutation } from "../../../graphql";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { loadStripe } from "@stripe/stripe-js";
 
 interface SettingsProps {
   user: any;
@@ -15,14 +16,31 @@ interface SettingsProps {
 export default function Settings({ user, toggle }: SettingsProps) {
   const { handleSubmit, register } = useForm();
   const [editUser] = useMutation(editUserMutation);
+  const [unSubUser] = useMutation(unSubUserMutation);
 
-  const [image, setImage] = useState<any>();
+  const [image, setImage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
+  const [reveal, setReveal] = useState<boolean>(false);
+
+  const stripePromise = loadStripe(String(process.env.REACT_APP_STRIPE_PK));
+
+  const handleClick = async () => {
+    // When the customer clicks on the button, redirect them to Checkout.
+    const stripe: any = await stripePromise;
+    await stripe.redirectToCheckout({
+      lineItems: [{ price: process.env.REACT_APP_STRIPE_CMS_SUB, quantity: 1 }],
+      mode: "subscription",
+      successUrl: process.env.REACT_APP_STRIPE_SUCCESS_URL,
+      cancelUrl: process.env.REACT_APP_STRIPE_CANCEL_URL,
+    });
+    // If `redirectToCheckout` fails due to a browser or network
+    // error, display the localized error message to your customer
+    // using `error.message`.
+  };
 
   const onDrop = useCallback(async (acceptedFiles) => {
     setLoading(true);
-    // console.log("acceptedFiles", acceptedFiles);
     await storage.ref(`/images/${acceptedFiles[0].name}`).put(acceptedFiles[0]);
     await storage
       .ref("images")
@@ -52,7 +70,7 @@ export default function Settings({ user, toggle }: SettingsProps) {
 
   return (
     <Flex as="form" drape w="35rem" onSubmit={handleSubmit(onSubmit)}>
-      <Text as="label" for="username">
+      <Text as="label" htmlFor="username">
         Username...
       </Text>
       {edit ? (
@@ -83,7 +101,7 @@ export default function Settings({ user, toggle }: SettingsProps) {
         </Flex>
       )}
 
-      <Text as="label" for="avatar" m="2rem 0">
+      <Text as="label" htmlFor="avatar" m="2rem 0">
         Profile image...
       </Text>
       {image ? (
@@ -111,6 +129,33 @@ export default function Settings({ user, toggle }: SettingsProps) {
           )}
         </Flex>
       )}
+      {user.subscriber ? (
+        <Button
+          red
+          type="button"
+          onClick={() => {
+            unSubUser({
+              variables: {
+                id: user.id,
+              },
+            });
+          }}
+        >
+          Unsubscribe
+        </Button>
+      ) : (
+        <Button green type="link" onClick={handleClick}>
+          Subscribe
+        </Button>
+      )}
+      {user.subscriber ? (
+        <>
+          <Button pink type="button" onClick={() => setReveal(!reveal)}>
+            Reveal Token
+          </Button>
+          {reveal ? <Text bold>{user.token}</Text> : null}
+        </>
+      ) : null}
       <Button amber type="green" m="2rem 0">
         Save changes...
       </Button>

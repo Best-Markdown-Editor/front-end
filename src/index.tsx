@@ -30,6 +30,7 @@ const link = createHttpLink({
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   link,
+  connectToDevTools: true,
 });
 
 const store = createStore(firebaseReducer, applyMiddleware(thunk));
