@@ -4,12 +4,9 @@ import { useDropzone } from "react-dropzone";
 import { storage } from "../../../config/firebase";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/react-hooks";
-import {
-  editUserMutation,
-  unSubUserMutation,
-  subUserMutation,
-} from "../../../graphql";
+import { editUserMutation, unSubUserMutation } from "../../../graphql";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { loadStripe } from "@stripe/stripe-js";
 
 interface SettingsProps {
   user: any;
@@ -20,12 +17,27 @@ export default function Settings({ user, toggle }: SettingsProps) {
   const { handleSubmit, register } = useForm();
   const [editUser] = useMutation(editUserMutation);
   const [unSubUser] = useMutation(unSubUserMutation);
-  const [subUser] = useMutation(subUserMutation);
 
   const [image, setImage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
   const [reveal, setReveal] = useState<boolean>(false);
+
+  const stripePromise = loadStripe(String(process.env.REACT_APP_STRIPE_PK));
+
+  const handleClick = async () => {
+    // When the customer clicks on the button, redirect them to Checkout.
+    const stripe: any = await stripePromise;
+    await stripe.redirectToCheckout({
+      lineItems: [{ price: process.env.REACT_APP_STRIPE_CMS_SUB, quantity: 1 }],
+      mode: "subscription",
+      successUrl: process.env.REACT_APP_STRIPE_SUCCESS_URL,
+      cancelUrl: process.env.REACT_APP_STRIPE_CANCEL_URL,
+    });
+    // If `redirectToCheckout` fails due to a browser or network
+    // error, display the localized error message to your customer
+    // using `error.message`.
+  };
 
   const onDrop = useCallback(async (acceptedFiles) => {
     setLoading(true);
@@ -132,17 +144,7 @@ export default function Settings({ user, toggle }: SettingsProps) {
           Unsubscribe
         </Button>
       ) : (
-        <Button
-          green
-          type="button"
-          onClick={() => {
-            subUser({
-              variables: {
-                id: user.id,
-              },
-            });
-          }}
-        >
+        <Button green type="link" onClick={handleClick}>
           Subscribe
         </Button>
       )}
