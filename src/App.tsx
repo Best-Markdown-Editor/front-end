@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Success from "./views/PaymentSuccess";
 import Cancel from "./views/PaymentCancel";
+import PubPreview from "./views/PubPreview";
 
 library.add(
   fab,
@@ -39,6 +40,7 @@ function App() {
       <PrivateRoute path="/success" component={Success} />
       <PrivateRoute path="/cancel" component={Cancel} />
       <PrivateRoute path="/:slug" component={MarkdownEditor} />
+      <PrivateRoute path="/preview/:slug" component={PubPreview} />
     </Switch>
   );
 }

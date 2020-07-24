@@ -112,7 +112,7 @@ export default function FileList() {
         </Form>
       </Modal>
       <Modal active={isDeleteModal} toggle={toggleDeleteModal}>
-        <Text>Are you sure you want do delete this file?</Text>
+        <Text>Are you sure you want to delete this file?</Text>
         <Button
           red
           onClick={async () => {

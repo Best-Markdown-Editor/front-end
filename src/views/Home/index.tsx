@@ -4,14 +4,20 @@ import Navbar from "../../utils/Navbar";
 import FileList from "./components/FileList";
 import { useSelector } from "react-redux";
 import { useQuery } from "@apollo/react-hooks";
-import { getUserQuery } from "../../graphql";
+import { getUserQuery, getPubFilesQuery } from "../../graphql";
 import Iframe from "react-iframe";
+import PubFileList from "./components/PubFileList";
 
 export default function Home() {
   const uid = useSelector((state: any) => state.auth?.uid);
   const { data: userData } = useQuery(getUserQuery, {
     variables: {
       id: uid,
+    },
+  });
+  const { data: pubFileData, loading } = useQuery(getPubFilesQuery, {
+    variables: {
+      userId: uid,
     },
   });
   return (
@@ -45,6 +51,14 @@ export default function Home() {
         </>
       )}
       <FileList />
+      {!userData?.user?.subscriber ||
+      pubFileData?.getPubFiles?.length === 0 ? null : (
+        <PubFileList
+          loading={loading}
+          pubFile={pubFileData?.getPubFiles}
+          userId={uid}
+        />
+      )}
     </Navbar>
   );
 }

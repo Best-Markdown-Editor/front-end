@@ -136,6 +136,12 @@ export const deleteFileMutation = gql`
   }
 `;
 
+export const unPublishFileMutation = gql`
+  mutation($id: ID!) {
+    unPublishFile(id: $id)
+  }
+`;
+
 export const publishFileMutation = gql`
   mutation($data: PubFileInput!) {
     publishFile(data: $data) {
@@ -154,6 +160,21 @@ export const publishFileMutation = gql`
 export const isFilePubQuery = gql`
   query($id: ID!) {
     isFilePub(id: $id)
+  }
+`;
+
+export const getPubFilesQuery = gql`
+  query($userId: ID!) {
+    getPubFiles(userId: $userId) {
+      id
+      title
+      slug
+      body
+      description
+      thumbnail
+      publishedOn
+      updatedAt
+    }
   }
 `;
 
