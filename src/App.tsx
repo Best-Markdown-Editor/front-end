@@ -39,8 +39,8 @@ function App() {
       <Route exact path="/demo" component={Demo} />
       <PrivateRoute path="/success" component={Success} />
       <PrivateRoute path="/cancel" component={Cancel} />
-      <PrivateRoute path="/:slug" component={MarkdownEditor} />
-      <PrivateRoute path="/preview/:slug" component={PubPreview} />
+      <PrivateRoute path="/file/:slug" component={MarkdownEditor} />
+      <PrivateRoute exact path="/preview/:slug" component={PubPreview} />
     </Switch>
   );
 }

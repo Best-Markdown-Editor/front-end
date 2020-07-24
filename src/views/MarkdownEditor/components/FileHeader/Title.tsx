@@ -34,7 +34,7 @@ export default function Title({ edit, title, file, toggle }: TitleProps) {
     });
     setThisTitle(data.title);
     toggle();
-    history.replace(`/${res?.data?.editFile?.slug}`);
+    history.replace(`/file/${res?.data?.editFile?.slug}`);
   }
 
   useEffect(() => {

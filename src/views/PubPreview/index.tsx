@@ -1,22 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Editor from "for-editor";
 import Navbar from "../../utils/Navbar";
 import { useParams } from "react-router";
-import { useQuery, useMutation } from "@apollo/react-hooks";
-import { getFileBySlugQuery, editFileMutation } from "../../graphql";
+import { useQuery } from "@apollo/react-hooks";
+import { getPubFileBySlugQuery } from "../../graphql";
 import { useSelector } from "react-redux";
-// import FileHeader from "./components/FileHeader";
-import { storage } from "../../config/firebase";
+import FileHeader from "./components/FileHeader";
 
 export default function PubPreview() {
   const uid = useSelector((state: any) => state.auth?.uid);
 
   const { slug } = useParams();
 
-  const imgRef = useRef();
-
-  const [loading, setLoading] = useState<boolean>(false);
-  const { data: fileData } = useQuery(getFileBySlugQuery, {
+  const { data: fileData } = useQuery(getPubFileBySlugQuery, {
     variables: {
       data: {
         slug,
@@ -27,63 +23,25 @@ export default function PubPreview() {
 
   const [currTitle, setCurrTitle] = useState<any>("");
 
-  const [editFile] = useMutation(editFileMutation);
-
   const [value, setValue] = useState("");
-
-  async function handleChange(value: string) {
-    setValue(value);
-    await editFile({
-      variables: {
-        data: {
-          id: fileData?.getFileBySlug?.id,
-          title: fileData?.getFileBySlug?.title,
-          body: value,
-        },
-      },
-    });
-  }
-
-  async function addImg(file: any) {
-    setLoading(true);
-    await storage.ref(`/images/${file.name}`).put(file);
-    await storage
-      .ref("images")
-      .child(file.name)
-      .getDownloadURL()
-      .then((fireBaseUrl: string) => {
-        // @ts-ignore
-        imgRef.current?.$img2Url(file.name, fireBaseUrl);
-        setLoading(false);
-      });
-  }
 
   useEffect(() => {
     if (value === "") {
-      if (fileData?.getFileBySlug?.body) {
-        setValue(fileData?.getFileBySlug?.body);
+      if (fileData?.getPubFileBySlug?.body) {
+        setValue(fileData?.getPubFileBySlug?.body);
       }
     }
-    setCurrTitle(fileData?.getFileBySlug?.title);
+    setCurrTitle(fileData?.getPubFileBySlug?.title);
   }, [fileData, value]);
 
   return (
     <Navbar>
-      {/* <FileHeader
-        userId={uid}
-        title={currTitle}
-        currFile={fileData?.getFileBySlug}
-        loading={loading}
-      /> */}
+      <FileHeader title={currTitle} currFile={value} />
       <div className="demo-container">
         {window.matchMedia("(min-width: 768px)").matches ? (
           <Editor
             language="en"
-            // @ts-ignore
-            ref={imgRef}
             value={value ? value : undefined}
-            onChange={handleChange}
-            addImg={addImg}
             height="calc(100vh - 9rem)"
             toolbar={{
               undo: true,
@@ -106,11 +64,7 @@ export default function PubPreview() {
         ) : (
           <Editor
             language="en"
-            // @ts-ignore
-            ref={imgRef}
             value={value ? value : undefined}
-            onChange={handleChange}
-            addImg={addImg}
             height="calc(100vh - 9rem)"
             toolbar={{
               undo: true,

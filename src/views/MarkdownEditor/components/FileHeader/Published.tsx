@@ -20,7 +20,6 @@ export default function Published({
 }: FileHeaderProps) {
   const [image, setImage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  // const [edit, setEdit] = useState(false);
 
   const { data } = useQuery(getPubFileQuery, {
     variables: {
