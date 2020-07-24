@@ -49,8 +49,7 @@ export default function FileList() {
       },
       refetchQueries: [{ query: getMyFilesQuery, variables: { userId: uid } }],
     });
-    history.push(`/${data?.addFile?.slug}`);
-    // data && data.addFile && data.addFile.slug
+    history.push(`/file/${data?.addFile?.slug}`);
   }
 
   if (loading) return <Loading />;
@@ -79,7 +78,7 @@ export default function FileList() {
               as="a"
               color={theme.colors.gray9}
               hvrColor={theme.colors.gray7}
-              href={`/${file.slug}`}
+              href={`/file/${file.slug}`}
               stretch
               pointer
             >
@@ -118,7 +117,7 @@ export default function FileList() {
         </Form>
       </Modal>
       <Modal active={isDeleteModal} toggle={toggleDeleteModal}>
-        <Text>Are you sure you want do delete this file?</Text>
+        <Text>Are you sure you want to delete this file?</Text>
         <Button
           red
           onClick={async () => {

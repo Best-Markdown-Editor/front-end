@@ -104,6 +104,21 @@ export const getFileBySlugQuery = gql`
   }
 `;
 
+export const getPubFileBySlugQuery = gql`
+  query($data: GetBySlugInput!) {
+    getPubFileBySlug(data: $data) {
+      id
+      title
+      slug
+      body
+      description
+      thumbnail
+      publishedOn
+      updatedAt
+    }
+  }
+`;
+
 export const addNewFileMutation = gql`
   mutation($data: NewFileInput!) {
     addFile(data: $data) {
@@ -136,6 +151,12 @@ export const deleteFileMutation = gql`
   }
 `;
 
+export const unPublishFileMutation = gql`
+  mutation($id: ID!) {
+    unPublishFile(id: $id)
+  }
+`;
+
 export const publishFileMutation = gql`
   mutation($data: PubFileInput!) {
     publishFile(data: $data) {
@@ -154,6 +175,21 @@ export const publishFileMutation = gql`
 export const isFilePubQuery = gql`
   query($id: ID!) {
     isFilePub(id: $id)
+  }
+`;
+
+export const getPubFilesQuery = gql`
+  query($userId: ID!) {
+    getPubFiles(userId: $userId) {
+      id
+      title
+      slug
+      body
+      description
+      thumbnail
+      publishedOn
+      updatedAt
+    }
   }
 `;
 

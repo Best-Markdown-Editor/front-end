@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  NavBar,
-  Wrapper,
-  Text,
-  Box,
-  // Button,
-  Flex,
-  theme,
-} from "sriracha-ui";
+import { NavBar, Wrapper, Text, Box, Flex, theme } from "sriracha-ui";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserOptions from "./components/UserOptions";
