@@ -36,7 +36,7 @@ export default function PubPreview() {
 
   return (
     <Navbar>
-      <FileHeader title={currTitle} currFile={value} />
+      <FileHeader title={currTitle} currFile={fileData?.getPubFileBySlug} />
       <div className="demo-container">
         {window.matchMedia("(min-width: 768px)").matches ? (
           <Editor
