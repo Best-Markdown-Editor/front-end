@@ -4,9 +4,14 @@ import { useDropzone } from "react-dropzone";
 import { storage } from "../../../config/firebase";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@apollo/react-hooks";
-import { editUserMutation, unSubUserMutation } from "../../../graphql";
+import {
+  editUserMutation,
+  unSubUserMutation,
+  regenTokenMutation,
+} from "../../../graphql";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { loadStripe } from "@stripe/stripe-js";
+import copy from "copy-to-clipboard";
 
 interface SettingsProps {
   user: any;
@@ -17,11 +22,13 @@ export default function Settings({ user, toggle }: SettingsProps) {
   const { handleSubmit, register } = useForm();
   const [editUser] = useMutation(editUserMutation);
   const [unSubUser] = useMutation(unSubUserMutation);
+  const [regenToken] = useMutation(regenTokenMutation);
 
   const [image, setImage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
   const [reveal, setReveal] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false);
 
   const stripePromise = loadStripe(String(process.env.REACT_APP_STRIPE_PK));
 
@@ -66,6 +73,14 @@ export default function Settings({ user, toggle }: SettingsProps) {
       },
     });
     toggle();
+  }
+
+  async function copyText() {
+    copy(user.token);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 1000);
   }
 
   return (
@@ -153,7 +168,64 @@ export default function Settings({ user, toggle }: SettingsProps) {
           <Button pink type="button" onClick={() => setReveal(!reveal)}>
             Reveal Token
           </Button>
-          {reveal ? <Text bold>{user.token}</Text> : null}
+          {reveal ? (
+            <Flex
+              drape
+              p="0.4rem"
+              border={
+                copied
+                  ? `0.2rem solid ${theme.colors.green6}`
+                  : `0.2rem solid ${theme.colors.gray4}`
+              }
+              hvrBorder={
+                copied
+                  ? `0.2rem solid ${theme.colors.green6}`
+                  : `0.2rem solid ${theme.colors.gray4}`
+              }
+            >
+              <Flex jcEnd stretch>
+                <Text bold>{copied ? "Copied" : "Copy"}</Text>
+                <Box
+                  m="0.4rem"
+                  bg={theme.colors.blue6}
+                  color={theme.colors.gray1}
+                  radius="0.4rem"
+                  w="2.2rem"
+                  pointer
+                  onClick={copyText}
+                >
+                  <FontAwesomeIcon icon="copy" />
+                </Box>
+              </Flex>
+              <Text
+                bold
+                p="0.2rem 0.4rem"
+                bg={theme.colors.gray9}
+                color={theme.colors.gray1}
+                radius="0.4rem"
+              >
+                {user.token}
+              </Text>
+
+              <Button
+                as="div"
+                red
+                onClick={async () => {
+                  await regenToken({
+                    variables: {
+                      id: user.id,
+                    },
+                  });
+                }}
+              >
+                Regenerate Token
+              </Button>
+              <Text sf>
+                Only regenerate your token if you feel that is has been
+                compromised.
+              </Text>
+            </Flex>
+          ) : null}
         </>
       ) : null}
       <Button amber type="green" m="2rem 0">

@@ -1,27 +1,14 @@
 import React, { useState } from "react";
 import Loading from "./Loading";
-import {
-  Card,
-  Text,
-  Button,
-  // Form,
-  // Input,
-  Box,
-  Modal,
-  useModal,
-  theme,
-} from "sriracha-ui";
+import { Card, Text, Button, Box, Modal, useModal, theme } from "sriracha-ui";
 import { useMutation } from "@apollo/react-hooks";
 import { unPublishFileMutation, getPubFilesQuery } from "../../../graphql";
-// import { useForm } from "react-hook-form";
-// import { useHistory } from "react-router";
-// import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface PubFileListProps {
   loading: boolean;
   userId: string;
-  pubFile: [
+  pubFiles: [
     {
       id: number;
       title: string;
@@ -37,11 +24,9 @@ interface PubFileListProps {
 
 export default function PubFileList({
   loading,
-  pubFile,
+  pubFiles,
   userId,
 }: PubFileListProps) {
-  // const uid = useSelector((state: any) => state.auth?.uid);
-  // const history = useHistory();
   const [currFileId, setCurrFileId] = useState("");
   const { isModal: isDeleteModal, toggleModal: toggleDeleteModal } = useModal();
   const [unPublishFile] = useMutation(unPublishFileMutation);
@@ -55,7 +40,7 @@ export default function PubFileList({
           Published Files
         </Text>
         <Box w="98%" h="0.2rem" bg={theme.colors.gary7} />
-        {pubFile.map((file: any) => (
+        {pubFiles.map((file: any) => (
           <Card
             radius="0.5rem"
             bg={theme.colors.gray4}
@@ -68,6 +53,8 @@ export default function PubFileList({
             aiCenter
             taLeft
           >
+            <FontAwesomeIcon icon="upload" />
+            <Box w="1rem" />
             <Text
               bold
               as="a"
