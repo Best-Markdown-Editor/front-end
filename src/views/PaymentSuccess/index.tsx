@@ -11,12 +11,11 @@ export default function Success() {
 
   useEffect(() => {
     async function sub() {
-      const res = await subUser({
+      await subUser({
         variables: {
           id: uid,
         },
       });
-      console.log("res", res);
     }
     sub();
   }, [subUser, uid]);

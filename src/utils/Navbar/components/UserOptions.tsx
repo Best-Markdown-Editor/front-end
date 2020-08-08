@@ -27,6 +27,7 @@ export default function UserOptions({ uid }: UserProps) {
       id: uid,
     },
   });
+  // console.log("user:", data);
 
   return (
     <>

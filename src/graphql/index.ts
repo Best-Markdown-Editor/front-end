@@ -52,6 +52,19 @@ export const unSubUserMutation = gql`
   }
 `;
 
+export const regenTokenMutation = gql`
+  mutation($id: ID!) {
+    regenToken(id: $id) {
+      id
+      username
+      email
+      avatar
+      subscriber
+      token
+    }
+  }
+`;
+
 export const getMyFilesQuery = gql`
   query($userId: String!) {
     getFiles(userId: $userId) {
@@ -205,5 +218,81 @@ export const getPubFileQuery = gql`
       publishedOn
       updatedAt
     }
+  }
+`;
+
+export const getUserFoldersQuery = gql`
+  query($userId: String!) {
+    getUserFolders(userId: $userId) {
+      id
+      name
+      files {
+        id
+        title
+        slug
+      }
+    }
+  }
+`;
+
+export const getFilesInFolderByNameQuery = gql`
+  query($data: GetFilesInFolderByNameInput!) {
+    getFilesInFolderByName(data: $data) {
+      id
+      title
+      slug
+      body
+      description
+      thumbnail
+    }
+  }
+`;
+
+export const getFilesInFolderByIdQuery = gql`
+  query($id: ID!) {
+    getFilesInFolderById(id: $id) {
+      id
+      title
+      slug
+      body
+      description
+      thumbnail
+    }
+  }
+`;
+
+export const AddFolderMutation = gql`
+  mutation($data: AddFolderInput!) {
+    addFolder(data: $data) {
+      id
+      name
+    }
+  }
+`;
+
+export const EditFolderMutation = gql`
+  mutation($data: EditFolderInput!) {
+    editFolder(data: $data) {
+      id
+      name
+    }
+  }
+`;
+
+export const DeleteFolderMutation = gql`
+  mutation($id: ID!) {
+    deleteFolder(id: $id)
+  }
+`;
+
+export const AddPubToFolderMutation = gql`
+  mutation($data: PubToFolderInput!) {
+    addPubToFolder(data: $data)
+  }
+`;
+
+export const UnPubToFolderMutation = gql`
+  mutation($data: PubToFolderInput!) {
+    unPubToFolder(data: $data)
   }
 `;

@@ -15,6 +15,10 @@ import {
   faUserCog,
   faSpinner,
   faFilePowerpoint,
+  faFolder,
+  faUpload,
+  faFileAlt,
+  faCopy,
 } from "@fortawesome/free-solid-svg-icons";
 import Success from "./views/PaymentSuccess";
 import Cancel from "./views/PaymentCancel";
@@ -29,7 +33,11 @@ library.add(
   faEdit,
   faUserCog,
   faSpinner,
-  faFilePowerpoint
+  faFilePowerpoint,
+  faFolder,
+  faUpload,
+  faFileAlt,
+  faCopy
 );
 
 function App() {

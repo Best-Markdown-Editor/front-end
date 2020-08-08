@@ -13,7 +13,6 @@ import {
 } from "sriracha-ui";
 import { useDropzone } from "react-dropzone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Title from "./Title";
 import { saveAs } from "file-saver";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import {
@@ -23,6 +22,7 @@ import {
 } from "../../../../graphql";
 import { useForm } from "react-hook-form";
 import { storage } from "../../../../config/firebase";
+import Title from "./Title";
 import Published from "./Published";
 
 interface FileHeaderProps {

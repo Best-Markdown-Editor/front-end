@@ -73,6 +73,8 @@ export default function FileList() {
             aiCenter
             taLeft
           >
+            <FontAwesomeIcon icon="file-alt" />
+            <Box w="1rem" />
             <Text
               bold
               as="a"
