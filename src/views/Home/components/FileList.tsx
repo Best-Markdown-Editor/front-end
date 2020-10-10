@@ -16,6 +16,8 @@ import {
   getMyFilesQuery,
   addNewFileMutation,
   deleteFileMutation,
+  unPublishFileMutation,
+  getPubFilesQuery,
 } from "../../../graphql";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
@@ -33,6 +35,7 @@ export default function FileList() {
   });
   const [addFile] = useMutation(addNewFileMutation);
   const [deleteFile] = useMutation(deleteFileMutation);
+  const [unPublishFile] = useMutation(unPublishFileMutation);
   const { handleSubmit, register } = useForm();
 
   const { isModal, toggleModal } = useModal();
@@ -102,43 +105,55 @@ export default function FileList() {
         ))}
       </Card>
       <Modal active={isModal} toggle={toggleModal}>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Text as="label" lg>
-            Title for your new file:
-          </Text>
-          <Input
-            type="text"
-            name="title"
-            autoFocus
-            ref={register}
-            placeholder="Title"
-          />
-          <Button type="submit" blue>
-            Create
-          </Button>
-        </Form>
+        <Card>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Text as="label" lg>
+              Title for your new file:
+            </Text>
+            <Input
+              type="text"
+              name="title"
+              autoFocus
+              ref={register}
+              placeholder="Title"
+            />
+            <Button type="submit" blue>
+              Create
+            </Button>
+          </Form>
+        </Card>
       </Modal>
       <Modal active={isDeleteModal} toggle={toggleDeleteModal}>
-        <Text>Are you sure you want to delete this file?</Text>
-        <Button
-          red
-          onClick={async () => {
-            await deleteFile({
-              variables: {
-                id: currFileId,
-              },
-              refetchQueries: [
-                { query: getMyFilesQuery, variables: { userId: uid } },
-              ],
-            });
-            toggleDeleteModal();
-          }}
-        >
-          Delete
-        </Button>
-        <Button blue onClick={toggleDeleteModal}>
-          Cancel
-        </Button>
+        <Card>
+          <Text>Are you sure you want to delete this file?</Text>
+          <Button
+            red
+            onClick={async () => {
+              await deleteFile({
+                variables: {
+                  id: currFileId,
+                },
+                refetchQueries: [
+                  { query: getMyFilesQuery, variables: { userId: uid } },
+                ],
+              });
+              await unPublishFile({
+                variables: {
+                  id: currFileId,
+                },
+                refetchQueries: [
+                  { query: getPubFilesQuery, variables: { userId: uid } },
+                ],
+              });
+              toggleDeleteModal();
+            }}
+          >
+            Delete
+          </Button>
+          <Button blue onClick={toggleDeleteModal}>
+            Cancel
+          </Button>
+        </Card>
       </Modal>
     </>
   );

@@ -66,13 +66,13 @@ export default function Landing() {
   }
   return (
     <>
-      <Wrapper jcAround>
+      <Wrapper jca>
         <Card stretch>
-          <Text as="h2" xlf bold m="3rem 0">
+          <Text as="h2" size="3xl" bold m="3rem 0">
             Welcome to Best Markdown Editor!
           </Text>
         </Card>
-        <Flex stretch jcCenter visible>
+        <Flex stretch jcc>
           <Button green sink m="0 2rem" onClick={toggleLogin}>
             Login
           </Button>
@@ -80,9 +80,9 @@ export default function Landing() {
             Sign up
           </Button>
         </Flex>
-        <Card taLeft p="3rem" stretch invert>
+        <Card tal p="3rem" stretch invert>
           <Flex drape>
-            <Text as="a" lf bold href="/demo" pointer>
+            <Text as="a" size="lg" bold href="/demo" pointer>
               Go to Demo page.
             </Text>
             <Text as="p" m="2rem 0" maxW="60rem">
@@ -109,76 +109,86 @@ export default function Landing() {
         <Box h="15vh" />
       </Wrapper>
       <Modal active={isLogin} toggle={toggleLogin}>
-        <Form
-          onSubmit={handleSubmit(onLogin)}
-          maxW="90vw"
-          maxH="90vh"
-          w="30rem"
-        >
-          <Input
-            m="0 0 1rem 0"
-            ref={reg}
-            type="text"
-            name="email"
-            placeholder="Email..."
-          />
-          <Input
-            m="0 0 1rem 0"
-            ref={reg}
-            type="password"
-            name="password"
-            placeholder="Password..."
-          />
-          <Text color={theme.colors.red5} m="2rem 0">
-            {errors ? errors : null}
-          </Text>
-          <Button type="submit" green>
+        <Card>
+          <Text bold size="xl" mt="2rem" mb="1rem">
             Login
-          </Button>
-        </Form>
+          </Text>
+          <Form
+            onSubmit={handleSubmit(onLogin)}
+            maxW="90vw"
+            maxH="90vh"
+            w="30rem"
+          >
+            <Input
+              mb="1rem"
+              ref={reg}
+              type="text"
+              name="email"
+              placeholder="Email..."
+            />
+            <Input
+              mb="1rem"
+              ref={reg}
+              type="password"
+              name="password"
+              placeholder="Password..."
+            />
+            <Text color={theme.colors.red5} m="2rem 0">
+              {errors ? errors : null}
+            </Text>
+            <Button type="submit" green>
+              Login
+            </Button>
+          </Form>
+        </Card>
       </Modal>
       <Modal active={isRegister} toggle={toggleRegister}>
-        <Form
-          onSubmit={handleSubmit(onRegister)}
-          maxW="90vw"
-          maxH="90vh"
-          w="30rem"
-        >
-          <Input
-            m="0 0 1rem 0"
-            ref={reg}
-            type="text"
-            name="email"
-            placeholder="Email..."
-          />
-          <Input
-            m="0 0 1rem 0"
-            ref={reg}
-            type="text"
-            name="username"
-            placeholder="Username..."
-          />
-          <Input
-            m="0 0 1rem 0"
-            ref={reg}
-            type="password"
-            name="password1"
-            placeholder="Password..."
-          />
-          <Input
-            m="0 0 1rem 0"
-            ref={reg}
-            type="password"
-            name="password2"
-            placeholder="Repeat password..."
-          />
-          <Text color={theme.colors.red5} m="2rem 0">
-            {errors ? errors : null}
+        <Card>
+          <Text bold size="xl" mt="2rem" mb="1rem">
+            Register
           </Text>
-          <Button type="submit" green>
-            Login
-          </Button>
-        </Form>
+          <Form
+            onSubmit={handleSubmit(onRegister)}
+            maxW="90vw"
+            maxH="90vh"
+            w="30rem"
+          >
+            <Input
+              mb="1rem"
+              ref={reg}
+              type="text"
+              name="email"
+              placeholder="Email..."
+            />
+            <Input
+              mb="1rem"
+              ref={reg}
+              type="text"
+              name="username"
+              placeholder="Username..."
+            />
+            <Input
+              mb="1rem"
+              ref={reg}
+              type="password"
+              name="password1"
+              placeholder="Password..."
+            />
+            <Input
+              mb="1rem"
+              ref={reg}
+              type="password"
+              name="password2"
+              placeholder="Repeat password..."
+            />
+            <Text color={theme.colors.red5} m="2rem 0">
+              {errors ? errors : null}
+            </Text>
+            <Button type="submit" amber>
+              Register
+            </Button>
+          </Form>
+        </Card>
       </Modal>
     </>
   );

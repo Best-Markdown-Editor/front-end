@@ -113,17 +113,6 @@ export default function Home() {
       ) : (
         <FileList />
       )}
-
-      {/* </Switch> */}
-
-      {/* {!userData?.user?.subscriber ||
-      pubFileData?.getPubFiles?.length === 0 ? null : (
-        <PubFileList
-          loading={loading}
-          pubFile={pubFileData?.getPubFiles}
-          userId={uid}
-        />
-      )} */}
     </Navbar>
   );
 }

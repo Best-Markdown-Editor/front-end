@@ -19,10 +19,13 @@ import {
   faUpload,
   faFileAlt,
   faCopy,
+  faCog,
 } from "@fortawesome/free-solid-svg-icons";
 import Success from "./views/PaymentSuccess";
 import Cancel from "./views/PaymentCancel";
 import PubPreview from "./views/PubPreview";
+import { AppContainer, useDarkMode } from "sriracha-ui";
+import FourOhFour from "./views/FourOhFour";
 
 library.add(
   fab,
@@ -37,19 +40,24 @@ library.add(
   faFolder,
   faUpload,
   faFileAlt,
-  faCopy
+  faCopy,
+  faCog
 );
 
 function App() {
+  const { themeString, toggleTheme } = useDarkMode();
   return (
-    <Switch>
-      <PrivateRoute exact path="/" component={Home} />
-      <Route exact path="/demo" component={Demo} />
-      <PrivateRoute path="/success" component={Success} />
-      <PrivateRoute path="/cancel" component={Cancel} />
-      <PrivateRoute path="/file/:slug" component={MarkdownEditor} />
-      <PrivateRoute exact path="/preview/:slug" component={PubPreview} />
-    </Switch>
+    <AppContainer themeString={themeString} toggleTheme={toggleTheme}>
+      <Switch>
+        <PrivateRoute exact path="/" component={Home} />
+        <Route exact path="/demo" component={Demo} />
+        <PrivateRoute path="/success" component={Success} />
+        <PrivateRoute path="/cancel" component={Cancel} />
+        <PrivateRoute path="/file/:slug" component={MarkdownEditor} />
+        <PrivateRoute exact path="/preview/:slug" component={PubPreview} />
+        <Route component={FourOhFour} />
+      </Switch>
+    </AppContainer>
   );
 }
 

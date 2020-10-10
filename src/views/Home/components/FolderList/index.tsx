@@ -140,43 +140,47 @@ export default function FolderList({ pubFiles }: FolderListProps) {
         ))}
       </Card>
       <Modal active={isModal} toggle={toggleModal}>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Text as="label" lg>
-            Title for your new folder:
-          </Text>
-          <Input
-            type="text"
-            name="name"
-            autoFocus
-            ref={register}
-            placeholder="Name..."
-          />
-          <Button type="submit" blue sink>
-            Create
-          </Button>
-        </Form>
+        <Card>
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            <Text as="label" lg>
+              Title for your new folder:
+            </Text>
+            <Input
+              type="text"
+              name="name"
+              autoFocus
+              ref={register}
+              placeholder="Name..."
+            />
+            <Button type="submit" blue sink>
+              Create
+            </Button>
+          </Form>
+        </Card>
       </Modal>
       <Modal active={isDeleteModal} toggle={toggleDeleteModal}>
-        <Text>Are you sure you want to delete this folder?</Text>
-        <Button
-          red
-          onClick={async () => {
-            await deleteFolder({
-              variables: {
-                id: currFolderId,
-              },
-              refetchQueries: [
-                { query: getUserFoldersQuery, variables: { userId: uid } },
-              ],
-            });
-            toggleDeleteModal();
-          }}
-        >
-          Delete
-        </Button>
-        <Button blue onClick={toggleDeleteModal}>
-          Cancel
-        </Button>
+        <Card>
+          <Text>Are you sure you want to delete this folder?</Text>
+          <Button
+            red
+            onClick={async () => {
+              await deleteFolder({
+                variables: {
+                  id: currFolderId,
+                },
+                refetchQueries: [
+                  { query: getUserFoldersQuery, variables: { userId: uid } },
+                ],
+              });
+              toggleDeleteModal();
+            }}
+          >
+            Delete
+          </Button>
+          <Button blue onClick={toggleDeleteModal}>
+            Cancel
+          </Button>
+        </Card>
       </Modal>
       <FolderModal
         isFolderModal={isFolderModal}

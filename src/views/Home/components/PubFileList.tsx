@@ -82,26 +82,28 @@ export default function PubFileList({
         ))}
       </Card>
       <Modal active={isDeleteModal} toggle={toggleDeleteModal}>
-        <Text>Are you sure you want to unpublish this file?</Text>
-        <Button
-          red
-          onClick={async () => {
-            await unPublishFile({
-              variables: {
-                id: currFileId,
-              },
-              refetchQueries: [
-                { query: getPubFilesQuery, variables: { userId } },
-              ],
-            });
-            toggleDeleteModal();
-          }}
-        >
-          Unpublish
-        </Button>
-        <Button blue onClick={toggleDeleteModal}>
-          Cancel
-        </Button>
+        <Card>
+          <Text>Are you sure you want to unpublish this file?</Text>
+          <Button
+            red
+            onClick={async () => {
+              await unPublishFile({
+                variables: {
+                  id: currFileId,
+                },
+                refetchQueries: [
+                  { query: getPubFilesQuery, variables: { userId } },
+                ],
+              });
+              toggleDeleteModal();
+            }}
+          >
+            Unpublish
+          </Button>
+          <Button blue onClick={toggleDeleteModal}>
+            Cancel
+          </Button>
+        </Card>
       </Modal>
     </>
   );

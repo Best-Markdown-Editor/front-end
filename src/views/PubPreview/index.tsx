@@ -7,10 +7,14 @@ import { getPubFileBySlugQuery } from "../../graphql";
 import { useSelector } from "react-redux";
 import FileHeader from "./components/FileHeader";
 
+interface PageProps {
+  slug: string;
+}
+
 export default function PubPreview() {
   const uid = useSelector((state: any) => state.auth?.uid);
 
-  const { slug } = useParams();
+  const { slug } = useParams<PageProps>();
 
   const { data: fileData } = useQuery(getPubFileBySlugQuery, {
     variables: {
@@ -57,7 +61,7 @@ export default function PubPreview() {
               expand: true,
               subfield: true,
             }}
-            subfield={true}
+            subfield={false}
             expand={false}
             preview={true}
           />

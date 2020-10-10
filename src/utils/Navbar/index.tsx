@@ -14,13 +14,7 @@ export default function Navbar({ children }: Props) {
 
   return (
     <Wrapper>
-      <NavBar
-        bg={theme.colors.gray9}
-        h={navHeight}
-        aiCenter
-        jcAround
-        maxW="100vw"
-      >
+      <NavBar radius="0" bg="gray9" h={navHeight} aic jca maxW="100vw">
         <Flex>
           <Link to="/">
             <Text
@@ -38,7 +32,7 @@ export default function Navbar({ children }: Props) {
             </Text>
           </Link>
         </Flex>
-        <Flex className="user-info" w="100%" jcEnd>
+        <Flex className="user-info" w="100%" jce>
           {uid ? <UserOptions uid={uid} /> : null}
         </Flex>
       </NavBar>
