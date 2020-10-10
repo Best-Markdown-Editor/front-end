@@ -4,7 +4,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { AppWrapper } from "sriracha-ui";
 import { ApolloProvider } from "react-apollo";
 import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -54,9 +53,7 @@ ReactDOM.render(
       <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
         <Router>
           <ApolloProvider client={client}>
-            <AppWrapper>
-              <App />
-            </AppWrapper>
+            <App />
           </ApolloProvider>
         </Router>
       </ReactReduxFirebaseProvider>

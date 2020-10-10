@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  ToolTip,
+  Img,
   Box,
   Button,
   Card,
@@ -21,54 +21,74 @@ interface UserProps {
 }
 
 export default function UserOptions({ uid }: UserProps) {
-  const { isModal, toggleModal } = useModal();
+  const { isModal: isSettings, toggleModal: toggleSettings } = useModal();
+  const { isModal: isOptions, toggleModal: toggleOptions } = useModal();
   const { data, loading } = useQuery(getUserQuery, {
     variables: {
       id: uid,
     },
   });
-  // console.log("user:", data);
+
+  console.log("user", data);
 
   return (
     <>
-      <ToolTip ttTop="3rem" ttRight="0">
-        <Box>
-          {loading ? (
-            <FontAwesomeIcon
-              icon="spinner"
-              spin
-              style={{ color: theme.colors.gray1, marginRight: "2rem" }}
+      <Box>
+        {loading ? (
+          <FontAwesomeIcon
+            icon="spinner"
+            spin
+            style={{ color: theme.colors.gray1, marginRight: "2rem" }}
+          />
+        ) : (
+          <Flex aic onClick={toggleOptions}>
+            <Text size="2rem" color="gray1">
+              {data?.user?.username}
+            </Text>
+            <Box w="1.6rem" />
+            <Img
+              sqr="3rem"
+              circle
+              mr="1rem"
+              src={data?.user?.avatar}
+              alt="user avatar"
             />
-          ) : (
-            <Flex aiCenter>
-              <Text fontSize="2rem" color={theme.colors.gray1}>
-                {data?.user?.username}
-              </Text>
-              <Box w="1.6rem" />
-              <Box sqr="3rem" circle m="0 1rem 0 0">
-                <img src={data?.user?.avatar} alt="user avatar" />
-              </Box>
-            </Flex>
-          )}
-        </Box>
-        <div className="tooltip">
-          <Card bg={theme.colors.gray8}>
-            <Button row amber w="12rem" onClick={toggleModal}>
-              <FontAwesomeIcon icon="user-cog" /> <Box w="1rem" /> Settings
-            </Button>
-            <Button
-              row
-              red
-              w="12rem"
-              onClick={async () => firebase.auth().signOut()}
-            >
-              <FontAwesomeIcon icon="sign-out-alt" /> <Box w="1.2rem" /> Logout
-            </Button>
-          </Card>
-        </div>
-      </ToolTip>
-      <Modal active={isModal} toggle={toggleModal}>
-        <Settings user={data?.user} toggle={toggleModal} />
+          </Flex>
+        )}
+      </Box>
+      <Modal active={isSettings} toggle={toggleSettings}>
+        <Settings user={data?.user} toggle={toggleSettings} />
+      </Modal>
+      <Modal
+        obg="none"
+        top="2.2rem"
+        left="auto"
+        right="1.8rem"
+        translate="0, 0"
+        active={isOptions}
+        toggle={toggleOptions}
+      >
+        <Card bg="gray8">
+          <Button
+            row
+            amber
+            w="12rem"
+            onClick={() => {
+              toggleSettings();
+              toggleOptions();
+            }}
+          >
+            <FontAwesomeIcon icon="user-cog" /> <Box w="1rem" /> Settings
+          </Button>
+          <Button
+            row
+            red
+            w="12rem"
+            onClick={async () => firebase.auth().signOut()}
+          >
+            <FontAwesomeIcon icon="sign-out-alt" /> <Box w="1.2rem" /> Logout
+          </Button>
+        </Card>
       </Modal>
     </>
   );

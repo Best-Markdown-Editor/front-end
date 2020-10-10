@@ -8,10 +8,14 @@ import { useSelector } from "react-redux";
 import FileHeader from "./components/FileHeader";
 import { storage } from "../../config/firebase";
 
+interface PageProps {
+  slug: string;
+}
+
 export default function MarkdownEditor() {
   const uid = useSelector((state: any) => state.auth?.uid);
 
-  const { slug } = useParams();
+  const { slug } = useParams<PageProps>();
 
   const imgRef = useRef();
 

@@ -52,7 +52,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "serve": "^11.3.2",
-    "sriracha-ui": "^0.7.2",
+    "sriracha-ui": "^1.8.7",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -61,6 +61,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "serve -s build",
+    "style": "yarn add sriracha-ui && yarn dev",
     "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {

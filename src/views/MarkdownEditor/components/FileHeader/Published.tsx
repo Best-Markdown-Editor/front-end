@@ -1,11 +1,16 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Flex, Input, Button, Box, Card, theme } from "sriracha-ui";
+import { Flex, Input, Button, Img, Card, theme } from "sriracha-ui";
 import { useDropzone } from "react-dropzone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { storage } from "../../../../config/firebase";
 import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@apollo/react-hooks";
-import { publishFileMutation, getPubFileQuery } from "../../../../graphql";
+import {
+  publishFileMutation,
+  getPubFileQuery,
+  getPubFilesQuery,
+} from "../../../../graphql";
+import { useSelector } from "react-redux";
 
 interface FileHeaderProps {
   userId: string;
@@ -37,6 +42,8 @@ export default function Published({
 
   const { handleSubmit, register } = useForm();
 
+  const uid = useSelector((state: any) => state.auth?.uid);
+
   async function onSubmit(data: any) {
     await publishFile({
       variables: {
@@ -47,6 +54,7 @@ export default function Published({
           thumbnail: image,
         },
       },
+      refetchQueries: [{ query: getPubFilesQuery, variables: { userId: uid } }],
     });
     toggleModal();
   }
@@ -77,9 +85,7 @@ export default function Published({
       />
       {image ? (
         <Flex drape m="2rem 0">
-          <Box maxW="25rem">
-            <img src={image} alt="preview" />
-          </Box>
+          <Img maxW="25rem" src={image} alt="preview" />
           <Button amber onClick={() => setImage("")}>
             Change Image
           </Button>
