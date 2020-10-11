@@ -1,5 +1,5 @@
 import React from "react";
-import { NavBar, Wrapper, Text, Box, Flex, theme } from "sriracha-ui";
+import { NavBar, Wrapper, Text, Box, Flex, useTheme } from "sriracha-ui";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserOptions from "./components/UserOptions";
@@ -12,16 +12,25 @@ export default function Navbar({ children }: Props) {
   const uid = useSelector((state: any) => state.auth?.uid);
   const navHeight = "5rem";
 
+  const { lightTheme } = useTheme();
+
   return (
     <Wrapper>
-      <NavBar radius="0" bg="gray9" h={navHeight} aic jca maxW="100vw">
+      <NavBar
+        radius="0"
+        bg={lightTheme.colors.gray9}
+        h={navHeight}
+        aic
+        jca
+        maxW="100vw"
+      >
         <Flex>
           <Link to="/">
             <Text
               as="h1"
               bold
               lf
-              color={theme.colors.gray1}
+              color={lightTheme.colors.gray1}
               w="36rem"
               p="0 1rem"
               pointer

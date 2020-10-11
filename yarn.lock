@@ -5590,12 +5590,7 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
-follow-redirects@^1.0.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
-  integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
-
-follow-redirects@^1.10.0:
+follow-redirects@^1.0.0, follow-redirects@^1.10.0:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
   integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
@@ -10947,10 +10942,10 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
 
-sriracha-ui@^1.8.7:
-  version "1.8.7"
-  resolved "https://registry.yarnpkg.com/sriracha-ui/-/sriracha-ui-1.8.7.tgz#b5a0fcfa0044f8203ba803b48a2c17527a4b7833"
-  integrity sha512-Dx1PMzIxyrvev9GOnV9rH5+p50BfO5MeAZ6C5U4JWXg54l5nEVjc2VHDnVcAkeO5QyZDm4xbm8EgZct5fPgDbA==
+sriracha-ui@^1.8.9:
+  version "1.8.9"
+  resolved "https://registry.yarnpkg.com/sriracha-ui/-/sriracha-ui-1.8.9.tgz#bd27b026af2edd181416b4e428a9078fa62094d2"
+  integrity sha512-jp9G3rAum5AdUQgmHoR2BitYiTYmoMUylOa9bjz7YsQCAWLGuC7aWDzziynVtiY5tGuvJITByFwahPRb9c5exw==
   dependencies:
     "@callstack/react-theme-provider" "^2.1.0"
     axios "^0.20.0"

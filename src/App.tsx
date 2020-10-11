@@ -20,6 +20,8 @@ import {
   faFileAlt,
   faCopy,
   faCog,
+  faSun,
+  faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import Success from "./views/PaymentSuccess";
 import Cancel from "./views/PaymentCancel";
@@ -41,7 +43,9 @@ library.add(
   faUpload,
   faFileAlt,
   faCopy,
-  faCog
+  faCog,
+  faSun,
+  faMoon
 );
 
 function App() {
