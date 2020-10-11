@@ -8,7 +8,7 @@ import {
   Flex,
   Modal,
   useModal,
-  theme,
+  useTheme,
 } from "sriracha-ui";
 import firebase from "../../../config/firebase";
 import { useQuery } from "@apollo/react-hooks";
@@ -29,7 +29,7 @@ export default function UserOptions({ uid }: UserProps) {
     },
   });
 
-  console.log("user", data);
+  const { themeString, toggleTheme, theme, lightTheme } = useTheme();
 
   return (
     <>
@@ -41,8 +41,8 @@ export default function UserOptions({ uid }: UserProps) {
             style={{ color: theme.colors.gray1, marginRight: "2rem" }}
           />
         ) : (
-          <Flex aic onClick={toggleOptions}>
-            <Text size="2rem" color="gray1">
+          <Flex aic onClick={toggleOptions} pointer>
+            <Text size="2rem" color={lightTheme.colors.gray1}>
               {data?.user?.username}
             </Text>
             <Box w="1.6rem" />
@@ -71,22 +71,47 @@ export default function UserOptions({ uid }: UserProps) {
         <Card bg="gray8">
           <Button
             row
-            amber
-            w="12rem"
+            orange
+            w="16rem"
             onClick={() => {
               toggleSettings();
               toggleOptions();
             }}
           >
-            <FontAwesomeIcon icon="user-cog" /> <Box w="1rem" /> Settings
+            <FontAwesomeIcon icon="user-cog" /> <Box w="1rem" />{" "}
+            <Text bold>Settings</Text>
+          </Button>
+          <Button row bg="gray5" hvrBg="gray7" onClick={toggleTheme} w="16rem">
+            {themeString === "dark" ? (
+              <>
+                <FontAwesomeIcon
+                  icon="sun"
+                  color={theme.colors.amber5}
+                  size="lg"
+                />
+                <Box w="1rem" />
+                <Text bold>Light Mode</Text>
+              </>
+            ) : (
+              <>
+                <FontAwesomeIcon
+                  icon="moon"
+                  color={theme.colors.purple7}
+                  size="lg"
+                />
+                <Box w="1rem" />
+                <Text bold>Dark Mode</Text>
+              </>
+            )}
           </Button>
           <Button
             row
             red
-            w="12rem"
+            w="16rem"
             onClick={async () => firebase.auth().signOut()}
           >
-            <FontAwesomeIcon icon="sign-out-alt" /> <Box w="1.2rem" /> Logout
+            <FontAwesomeIcon icon="sign-out-alt" /> <Box w="1.2rem" />{" "}
+            <Text bold>Logout</Text>
           </Button>
         </Card>
       </Modal>

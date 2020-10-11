@@ -52,7 +52,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "serve": "^11.3.2",
-    "sriracha-ui": "^1.8.7",
+    "sriracha-ui": "^1.8.9",
     "typescript": "~3.7.2"
   },
   "scripts": {
