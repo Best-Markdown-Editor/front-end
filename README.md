@@ -12,9 +12,8 @@ All and all, this is a pretty simple web app that's meant to be simple. If you'r
 
 
 ## Getting started
----
 
-### Installation and Setup
+#### Installation and Setup
 
 To get the client running locally, clone this repo and use the following commands/steps:
 
@@ -43,17 +42,20 @@ There should be a .env file containing the following:
 
 To query and fetch from the API locally use the following URL: `http://localhost:4000/graphql` for the `REACT_APP_GQL_URL` after cloning and running the back end for this project. 
 
-User must set up their own environment variables for the following:
-
-    REACT_APP_API_KEY 
-    ...
-
-## APIs Used
+## Contributing and getting involved
 ---
-Stripe is a service that allows users to make and accept online payments. Through its API, Stripe frees developers from the technological, security and regulatory burdens that come with handling sensitive user payment information, such as credit card numbers. Stripe also allows for the processing of many kinds of transactions, including one-time payments and subscriptions, and these transactions maybe processed using a variety of payment methods.
+**Issue and Bug Requests** 
 
-## Pull Request Guidelines
+If you are having an issue with the existing project code, please submit a bug report under the following guidelines:
 
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes, where you believe the issue is originating from, and any potential solutions you have considered.
+
+**Pull Request Guidelines**
+- Fork the repo 
+- Create a branch with feature name 
 - Ensure that your code conforms to our existing code conventions and test coverage.
 - Include the relevant issue number, if applicable.
-- ... 
+- Include meaningful commit messages 
