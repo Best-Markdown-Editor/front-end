@@ -59,3 +59,8 @@ If you are having an issue with the existing project code, please submit a bug r
 - Ensure that your code conforms to our existing code conventions and test coverage.
 - Include the relevant issue number, if applicable.
 - Include meaningful commit messages 
+
+
+## Additional Documentation
+
+See [Backend Documentation](https://github.com/Best-Markdown-Editor/back-end) for details on the backend of our project.
