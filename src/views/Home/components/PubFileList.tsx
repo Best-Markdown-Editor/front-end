@@ -53,6 +53,7 @@ export default function PubFileList({
             aiCenter
             taLeft
           >
+            {console.log('pbFIles', pubFiles)}
             <FontAwesomeIcon icon="upload" />
             <Box w="1rem" />
             <Text

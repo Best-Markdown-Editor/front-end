@@ -111,7 +111,7 @@ export default function Home() {
       ) : activeTab === 3 ? (
         <FolderList pubFiles={pubFileData?.getPubFiles} />
       ) : (
-        <FileList />
+        <FileList  />
       )}
     </Navbar>
   );
