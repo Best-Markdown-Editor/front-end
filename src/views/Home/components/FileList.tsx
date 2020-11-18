@@ -12,12 +12,14 @@ import {
   theme,
 } from "sriracha-ui";
 import { useQuery, useMutation } from "@apollo/react-hooks";
+
 import {
   getMyFilesQuery,
   addNewFileMutation,
   deleteFileMutation,
   unPublishFileMutation,
   getPubFilesQuery,
+  getPubFileQuery
 } from "../../../graphql";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
@@ -33,6 +35,29 @@ export default function FileList() {
       userId: uid,
     },
   });
+  
+  // query for pub file data
+  const { data: pubFileData } = useQuery(getPubFilesQuery, {
+    variables: {
+      userId: uid,
+    },
+  });
+
+  // data from pub files as array of ids 
+  const publishedFilesId = pubFileData && pubFileData.getPubFiles.map((pubfiles: any) =>{
+    return pubfiles.id
+  })
+  
+  // publishedFilesId && console.log('published files ids', publishedFilesId)
+
+  // get pub file by id 
+  const { data: pubFileVersion } = useQuery(getPubFileQuery, {
+    variables: {
+      id: uid,
+    },
+  });
+   
+  
   const [addFile] = useMutation(addNewFileMutation);
   const [deleteFile] = useMutation(deleteFileMutation);
   const [unPublishFile] = useMutation(unPublishFileMutation);
@@ -40,6 +65,8 @@ export default function FileList() {
 
   const { isModal, toggleModal } = useModal();
   const { isModal: isDeleteModal, toggleModal: toggleDeleteModal } = useModal();
+
+
 
   async function onSubmit({ title }: any) {
     const { data } = await addFile({
@@ -55,8 +82,15 @@ export default function FileList() {
     history.push(`/file/${data?.addFile?.slug}`);
   }
 
-  if (loading) return <Loading />;
+  // attempting to pass in id of file that has a published version.. 
+  // not sure how to do it or if logic flow makes sense. this function was meant to be called from line 115 if published version exists
+  function getPubFileContent(id: any) {
+    console.log('published version', id )
+    const data =  [{ query: pubFileVersion, variables: { id: id } }]
+    console.log('d', data)
+  }
 
+  if (loading) return <Loading />;
   return (
     <>
       <Card w="40rem" maxW="94vw" shade>
@@ -76,7 +110,10 @@ export default function FileList() {
             aiCenter
             taLeft
           >
-            <FontAwesomeIcon icon="file-alt" />
+            {console.log('is file published?', publishedFilesId.includes(file.id))}
+             {/* is this file's id in pubfile query data ?          ?  call function to get content */}  
+            {publishedFilesId && publishedFilesId.includes(file.id) ?  getPubFileContent(file.id) :
+            <FontAwesomeIcon icon="file-alt" /> }
             <Box w="1rem" />
             <Text
               bold

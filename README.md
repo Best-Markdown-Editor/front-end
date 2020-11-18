@@ -9,3 +9,4 @@
 In addition, we also help you keep track of your files. You can create new files, edit files, and delete files. You can even export them as a markdown file to your computer.
 
 All and all, this is a pretty simple web app that's meant to be simple. If you're like me, and you write markdown for multiple platforms and constantly posting blogs to different mediums, it's nice to have one simple place where you can keep track of everything.
+ 
