@@ -9,6 +9,7 @@ import {
   Input,
   Box,
   useModal,
+  useTheme,
   theme,
 } from "sriracha-ui";
 import { useQuery, useMutation } from "@apollo/react-hooks";
@@ -25,6 +26,8 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function FileList() {
+  const { theme: colorTheme } = useTheme();
+  const { colors } = colorTheme;
   const uid = useSelector((state: any) => state.auth?.uid);
   const history = useHistory();
   const [currFileId, setCurrFileId] = useState("");
@@ -66,7 +69,7 @@ export default function FileList() {
         {data?.getFiles.map((file: any) => (
           <Card
             radius="0.5rem"
-            bg={theme.colors.gray4}
+            bg={colors.gray4}
             key={file.id}
             stretch
             sink
@@ -76,7 +79,10 @@ export default function FileList() {
             aiCenter
             taLeft
           >
-            <FontAwesomeIcon icon="file-alt" />
+            <FontAwesomeIcon
+              icon="file-alt"
+              style={{ color: colors.purple9 }}
+            />
             <Box w="1rem" />
             <Text
               bold
