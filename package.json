@@ -67,9 +67,6 @@
     "style": "yarn add sriracha-ui && yarn dev",
     "heroku-postbuild": "npm run build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
