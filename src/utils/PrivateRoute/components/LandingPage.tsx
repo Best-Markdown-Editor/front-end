@@ -30,7 +30,7 @@ export default function Landing() {
   async function onLogin({ email, password }: any) {
     try {
       await firebase.auth().signInWithEmailAndPassword(email, password);
-    } catch (err: any) {
+    } catch (err) {
       setErrors(err.message);
     }
   }
@@ -60,7 +60,7 @@ export default function Landing() {
           },
         },
       });
-    } catch (err: any) {
+    } catch (err) {
       setErrors(err.message);
     }
   }
