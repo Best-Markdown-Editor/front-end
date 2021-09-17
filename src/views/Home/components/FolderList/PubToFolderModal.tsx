@@ -22,7 +22,7 @@ export default function PubToFolderModal({
     <Modal active={isPubFilesModal} toggle={togglePubFilesModal}>
       <Card>
         <Flex drape w="36rem" maxW="94vw" m="0" visible>
-          {pubFiles.map((pub: any) => (
+          {pubFiles?.map((pub: any) => (
             <Card
               row
               aiCenter

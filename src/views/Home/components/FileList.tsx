@@ -42,7 +42,7 @@ export default function FileList() {
     },
   });
 
-  const publishedFileIdList: Number[] = pubFileData?.getPubFiles.map(
+  const publishedFileIdList: Number[] = pubFileData?.getPubFiles?.map(
     (pubFiles: any) => {
       return pubFiles.id;
     }
@@ -78,7 +78,7 @@ export default function FileList() {
         <Button green sink onClick={toggleModal}>
           Add New File
         </Button>
-        {data?.getFiles.map((file: any) => (
+        {data?.getFiles?.map((file: any) => (
           <Card
             radius="0.5rem"
             bg={colors.gray4}

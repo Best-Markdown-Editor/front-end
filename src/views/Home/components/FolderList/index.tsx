@@ -8,7 +8,6 @@ import {
   Form,
   Input,
   Box,
-  // Flex,
   useModal,
   theme,
 } from "sriracha-ui";
@@ -65,10 +64,8 @@ export default function FolderList({ pubFiles }: FolderListProps) {
   const { isModal, toggleModal } = useModal();
   const { isModal: isDeleteModal, toggleModal: toggleDeleteModal } = useModal();
   const { isModal: isFolderModal, toggleModal: toggleFolderModal } = useModal();
-  const {
-    isModal: isPubFilesModal,
-    toggleModal: togglePubFilesModal,
-  } = useModal();
+  const { isModal: isPubFilesModal, toggleModal: togglePubFilesModal } =
+    useModal();
 
   async function onSubmit({ name }: any) {
     await addFolder({
@@ -94,7 +91,7 @@ export default function FolderList({ pubFiles }: FolderListProps) {
         <Button green row aiCenter sink onClick={toggleModal}>
           Add New Folder
         </Button>
-        {data?.getUserFolders.map((folder: any) => (
+        {data?.getUserFolders?.map((folder: any) => (
           <Card
             radius="0.5rem"
             bg={theme.colors.gray4}
