@@ -36,6 +36,18 @@ export default function FileList() {
       userId: uid,
     },
   });
+  const { data: pubFileData } = useQuery(getPubFilesQuery, {
+    variables: {
+      userId: uid,
+    },
+  });
+
+  const publishedFileIdList: Number[] = pubFileData?.getPubFiles.map(
+    (pubFiles: any) => {
+      return pubFiles.id;
+    }
+  );
+
   const [addFile] = useMutation(addNewFileMutation);
   const [deleteFile] = useMutation(deleteFileMutation);
   const [unPublishFile] = useMutation(unPublishFileMutation);
@@ -74,15 +86,22 @@ export default function FileList() {
             stretch
             sink
             pointer
-            across
-            jcEvenly
+            row
+            jcCenter
             aiCenter
             taLeft
           >
-            <FontAwesomeIcon
-              icon="file-alt"
-              style={{ color: colors.purple9 }}
-            />
+            {publishedFileIdList.includes(file.id) ? (
+              <FontAwesomeIcon
+                icon="upload"
+                style={{ color: colors.purple9 }}
+              />
+            ) : (
+              <FontAwesomeIcon
+                icon="file-alt"
+                style={{ color: colors.amber6 }}
+              />
+            )}
             <Box w="1rem" />
             <Text
               bold
