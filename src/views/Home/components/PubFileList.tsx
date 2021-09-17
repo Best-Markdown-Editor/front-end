@@ -40,7 +40,7 @@ export default function PubFileList({
           Published Files
         </Text>
         <Box w="98%" h="0.2rem" bg={theme.colors.gary7} />
-        {pubFiles.map((file: any) => (
+        {pubFiles?.map((file: any) => (
           <Card
             radius="0.5rem"
             bg={theme.colors.gray4}
