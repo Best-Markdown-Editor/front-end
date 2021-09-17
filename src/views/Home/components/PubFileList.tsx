@@ -53,7 +53,10 @@ export default function PubFileList({
             aiCenter
             taLeft
           >
-            <FontAwesomeIcon icon="upload" />
+            <FontAwesomeIcon
+              icon="upload"
+              style={{ color: theme.colors.purple9 }}
+            />
             <Box w="1rem" />
             <Text
               bold
